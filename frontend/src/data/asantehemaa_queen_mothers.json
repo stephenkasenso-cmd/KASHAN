@@ -1,0 +1,52 @@
+{
+  "asantehemaa": {
+    "title": "Asantehemaa",
+    "role": "Supreme Traditional Queen Mother of Asanteman",
+    "court": "Asantehemaa Customary Court, Manhyia Palace",
+    "responsibilities": [
+      "Primary right of stool nomination during male stool vacancy",
+      "Customary judicial arbitration over marital, family, and land disputes",
+      "Custodian of matrilineal genealogies (Abusua)"
+    ],
+    "categories": [
+      {
+        "categoryName": "Paramount Queen Mothers of the Amantoo (Founding States)",
+        "rankOrder": 1,
+        "description": "Highest ranking seats in the traditional women's council",
+        "queenMothers": [
+          { "title": "Juabenhemaa", "jurisdiction": "Juaben Traditional Area", "lineage": "Oyoko" },
+          { "title": "Bekwaihemaa", "jurisdiction": "Bekwai Traditional Area", "lineage": "Oyoko" },
+          { "title": "Mamponghemaa", "jurisdiction": "Mampong Traditional Area", "lineage": "Bretuo", "notes": "Historically second-in-command in precedence" },
+          { "title": "Kokofuhemaa", "jurisdiction": "Kokofu Traditional Area", "lineage": "Oyoko" },
+          { "title": "Nsutahemaa", "jurisdiction": "Nsuta Traditional Area", "lineage": "Oyoko" },
+          { "title": "Essumejahemaa", "jurisdiction": "Essumeja Traditional Area", "lineage": "Aduana" }
+        ]
+      },
+      {
+        "categoryName": "Regional & Divisional Paramount Queen Mothers",
+        "rankOrder": 2,
+        "description": "Governing matriarchs of affiliated divisional traditional states across Asanteman",
+        "queenMothers": [
+          { "title": "Offinsohemaa", "jurisdiction": "Offinso Traditional Area", "lineage": "Asona" },
+          { "title": "Ejisuhemaa", "jurisdiction": "Ejisu Traditional Area", "lineage": "Oyoko", "notes": "Historic seat of Yaa Asantewaa" },
+          { "title": "Agonahemaa", "jurisdiction": "Agona Traditional Area", "lineage": "Ekoona" },
+          { "title": "Kumawuhemaa", "jurisdiction": "Kumawu Traditional Area", "lineage": "Aduana" },
+          { "title": "Asokorehemaa", "jurisdiction": "Asokore Traditional Area", "lineage": "Oyoko" },
+          { "title": "Tepahemaa", "jurisdiction": "Tepa Traditional Area", "lineage": "Oyoko" }
+        ]
+      },
+      {
+        "categoryName": "Divisional & Sub-Queen Mothers of the Kumasi Traditional Council",
+        "rankOrder": 3,
+        "description": "Female rulers governing administrative wings (Fekuo) and quarters within Kumasi",
+        "queenMothers": [
+          { "title": "Kumasi Gyaasehemaa", "jurisdiction": "Gyaase Division (Kumasi)", "roleDescription": "Oversees domestic protocol, palace women, and royal household operations" },
+          { "title": "Ankobeahemaa", "jurisdiction": "Ankobea Division (Kumasi)", "roleDescription": "Female advisor and custodian of domestic palace secrets" },
+          { "title": "Krontihemaa", "jurisdiction": "Kronti Division (Kumasi)", "roleDescription": "Co-head of civil governance and regional administrative divisions" },
+          { "title": "Adontenhemaa", "jurisdiction": "Adonten Division (Kumasi)", "roleDescription": "Co-head of main front-line public delegations" },
+          { "title": "Akwamuhemaa", "jurisdiction": "Akwamu Division (Kumasi)", "roleDescription": "Strategic defense and customary protocol co-ruler" }
+        ]
+      }
+    ]
+  }
+}
