@@ -3,8 +3,12 @@
   "version": "1.0.0",
   "description": "Family Tree and Lineage Backend Service",
   "main": "dist/server.js",
+  "workspaces": [
+    "frontend"
+  ],
   "scripts": {
-    "build": "prisma generate && tsc && npm --prefix frontend run build",
+    "build": "npm --prefix frontend install --legacy-peer-deps && prisma generate && tsc && npm --prefix frontend run build",
+    "postinstall": "npm --prefix frontend install --legacy-peer-deps",
     "start": "node dist/server.js",
     "dev": "ts-node src/server.ts",
     "dev:all": "concurrently \"npm run dev\" \"npm --prefix frontend run dev\"",
