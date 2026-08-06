@@ -264,7 +264,7 @@ export const RelationshipForm: React.FC<RelationshipFormProps> = ({
               background: 'linear-gradient(135deg, #d97706, #b45309)',
               border: 'none', color: '#fff', borderRadius: '8px',
               padding: '0.35rem 0.75rem', fontSize: '0.75rem', fontWeight: 600,
-              cursor: 'pointer', shadow: '0 2px 8px rgba(217, 119, 6, 0.3)'
+              cursor: 'pointer', boxShadow: '0 2px 8px rgba(217, 119, 6, 0.3)'
             }}
           >
             <Crown size={14} />

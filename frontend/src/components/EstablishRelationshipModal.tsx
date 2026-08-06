@@ -44,7 +44,7 @@ export const EstablishRelationshipModal: React.FC<EstablishRelationshipModalProp
 
   // Form State
   const [category, setCategory] = useState<string>('PARENT_CHILD');
-  const [subtype, setSubtype] = useState<string>('Biological');
+  const [subtype] = useState<string>('Biological');
   const [traditionalRole, setTraditionalRole] = useState<string>('');
   const [startDate, setStartDate] = useState<string>('');
   const [endDate, setEndDate] = useState<string>('');

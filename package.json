@@ -4,7 +4,7 @@
   "description": "Family Tree and Lineage Backend Service",
   "main": "dist/server.js",
   "scripts": {
-    "build": "prisma generate && tsc",
+    "build": "prisma generate && tsc && npm --prefix frontend run build",
     "start": "node dist/server.js",
     "dev": "ts-node src/server.ts",
     "dev:all": "concurrently \"npm run dev\" \"npm --prefix frontend run dev\"",

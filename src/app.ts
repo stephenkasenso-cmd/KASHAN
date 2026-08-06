@@ -1,4 +1,5 @@
 import express, { Request, Response, NextFunction } from 'express';
+import path from 'path';
 import { 
   createPersonHandler, 
   getImmediateFamilyHandler, 
@@ -63,6 +64,10 @@ const app = express();
 
 // Parse incoming JSON requests
 app.use(express.json({ limit: '10mb' }));
+
+// Serve static assets from frontend build directory
+const frontendDistPath = path.join(process.cwd(), 'frontend', 'dist');
+app.use(express.static(frontendDistPath));
 
 // Auto-seed default users
 seedDefaultUsers().catch(err => {
@@ -150,6 +155,29 @@ app.get('/api/reports/biography/:personId', getBiographicalReportHandler);
 // Health check endpoint
 app.get('/health', (req: Request, res: Response) => {
   res.json({ status: 'OK', timestamp: new Date() });
+});
+
+// Serve SPA frontend index.html for all non-API GET requests
+app.get('*', (req: Request, res: Response, next: NextFunction) => {
+  if (req.path.startsWith('/api')) {
+    return next();
+  }
+  const indexPath = path.join(frontendDistPath, 'index.html');
+  res.sendFile(indexPath, (err) => {
+    if (err) {
+      res.status(200).send(`
+        <!DOCTYPE html>
+        <html>
+        <head><title>Asanteman Royal Lineage API</title></head>
+        <body style="font-family: system-ui; padding: 2rem; background: #0f172a; color: #f8fafc;">
+          <h1>👑 Asanteman Traditional Leadership & Lineage API</h1>
+          <p>Backend API service is online.</p>
+          <p>Health Check: <a href="/health" style="color: #38bdf8;">/health</a></p>
+        </body>
+        </html>
+      `);
+    }
+  });
 });
 
 // Centralized Error Handling Middleware

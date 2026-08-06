@@ -87,14 +87,14 @@ async function checkIsDescendant(ancestorId: number, targetId: number): Promise<
   const result = await prisma.$queryRaw<any[]>`
     WITH RECURSIVE DescendantCheck AS (
       SELECT person_id_2 AS child_id
-      FROM Relationship
+      FROM "Relationship"
       WHERE person_id_1 = ${ancestorId} 
         AND relationship_type IN ('Parent-Child', 'Traditional Command (Chiefs)', 'Traditional Command (Queen Mothers)')
 
       UNION ALL
 
       SELECT r.person_id_2
-      FROM Relationship r
+      FROM "Relationship" r
       JOIN DescendantCheck dc ON dc.child_id = r.person_id_1
       WHERE r.relationship_type IN ('Parent-Child', 'Traditional Command (Chiefs)', 'Traditional Command (Queen Mothers)')
     )
@@ -802,7 +802,7 @@ export async function getAncestors(personId: number, maxGenerations: number): Pr
         birth_date, birth_place, death_date, death_place, is_living, bio,
         0 AS generation,
         CAST(NULL AS INTEGER) AS child_id
-      FROM Person
+      FROM "Person"
       WHERE person_id = ${personId}
 
       UNION ALL
@@ -812,13 +812,13 @@ export async function getAncestors(personId: number, maxGenerations: number): Pr
         p.birth_date, p.birth_place, p.death_date, p.death_place, p.is_living, p.bio,
         at.generation + 1 AS generation,
         at.person_id AS child_id
-      FROM Person p
-      JOIN Relationship r ON (r.person_id_1 = p.person_id AND r.relationship_type IN ('Parent-Child', 'Traditional Command (Chiefs)', 'Traditional Command (Queen Mothers)'))
+      FROM "Person" p
+      JOIN "Relationship" r ON (r.person_id_1 = p.person_id AND r.relationship_type IN ('Parent-Child', 'Traditional Command (Chiefs)', 'Traditional Command (Queen Mothers)'))
       JOIN AncestorTree at ON at.person_id = r.person_id_2
       WHERE at.generation < ${maxGenerations}
         -- Exclude linking peer kings as parent-child unless explicit biological relationship exists
         AND NOT (
-          (p.dynasticNumber IS NOT NULL OR p.profession = 'Asantehene')
+          (p."dynasticNumber" IS NOT NULL OR p.profession = 'Asantehene')
           AND r.subtype != 'Biological'
         )
     )
@@ -848,7 +848,7 @@ export async function getDescendants(personId: number, maxGenerations: number): 
         birth_date, birth_place, death_date, death_place, is_living, bio,
         0 AS generation,
         CAST(NULL AS INTEGER) AS parent_id
-      FROM Person
+      FROM "Person"
       WHERE person_id = ${personId}
 
       UNION ALL
@@ -858,13 +858,13 @@ export async function getDescendants(personId: number, maxGenerations: number): 
         p.birth_date, p.birth_place, p.death_date, p.death_place, p.is_living, p.bio,
         dt.generation + 1 AS generation,
         dt.person_id AS parent_id
-      FROM Person p
-      JOIN Relationship r ON (r.person_id_2 = p.person_id AND r.relationship_type IN ('Parent-Child', 'Traditional Command (Chiefs)', 'Traditional Command (Queen Mothers)'))
+      FROM "Person" p
+      JOIN "Relationship" r ON (r.person_id_2 = p.person_id AND r.relationship_type IN ('Parent-Child', 'Traditional Command (Chiefs)', 'Traditional Command (Queen Mothers)'))
       JOIN DescendantTree dt ON dt.person_id = r.person_id_1
       WHERE dt.generation < ${maxGenerations}
         -- Exclude linking peer kings as parent-child unless explicit biological relationship exists
         AND NOT (
-          (p.dynasticNumber IS NOT NULL OR p.profession = 'Asantehene')
+          (p."dynasticNumber" IS NOT NULL OR p.profession = 'Asantehene')
           AND r.subtype != 'Biological'
         )
     )
