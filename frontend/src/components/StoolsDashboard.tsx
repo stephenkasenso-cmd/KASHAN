@@ -361,11 +361,11 @@ export const StoolsDashboard: React.FC<StoolsDashboardProps> = ({ currentUser })
   const qmStoolsList = stools.filter(s => qmRanks.includes(s.rank));
 
   return (
-    <div style={{ padding: '6rem 2rem 2rem 2rem', height: '100%', overflowY: 'auto' }}>
+    <div className="view-pad" style={{ height: '100%', overflowY: 'auto' }}>
       {/* Dashboard Header */}
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem', flexWrap: 'wrap', gap: '1rem' }}>
         <div>
-          <h2 style={{ fontSize: '2.2rem', fontWeight: 500, fontFamily: 'var(--font-display)', display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+          <h2 style={{ fontSize: '1.5rem', fontWeight: 500, fontFamily: 'var(--font-display)', display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
             <Crown style={{ color: 'var(--accent-primary)' }} />
             Traditional Leadership & Councils
           </h2>

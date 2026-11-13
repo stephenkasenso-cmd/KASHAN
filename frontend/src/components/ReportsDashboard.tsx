@@ -120,7 +120,7 @@ export const ReportsDashboard: React.FC<ReportsDashboardProps> = ({
   };
 
   return (
-    <div style={{ flex: 1, display: 'flex', flexDirection: 'column', padding: '5rem 2rem 2rem 2rem', overflowY: 'auto' }}>
+    <div className="view-pad" style={{ flex: 1, display: 'flex', flexDirection: 'column', overflowY: 'auto', height: '100%' }}>
       
       {/* Sub Tabs */}
       <div className="tab-navigation-bar" style={{ display: 'flex', gap: '0.5rem', marginBottom: '1.5rem', borderBottom: 'var(--glass-border)', paddingBottom: '0.75rem' }}>

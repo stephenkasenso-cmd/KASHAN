@@ -10,7 +10,38 @@ import { StoolsDashboard } from './components/StoolsDashboard';
 import { SettingsPanel } from './components/SettingsPanel';
 import { IndividualRegistrationTable } from './components/IndividualRegistrationTable';
 import { Login } from './components/Login';
-import { GitBranch, Search, AlertCircle, LogOut, Table as TableIcon } from 'lucide-react';
+import {
+  GitBranch, Search, AlertCircle, LogOut, Table as TableIcon, LayoutDashboard, Crown, FileText,
+  Settings, UserPlus, Link2, X, Shield, MapPin, Tent, ChevronRight
+} from 'lucide-react';
+
+type View = 'dashboard' | 'tree' | 'reports' | 'stools' | 'table' | 'settings';
+type SettingsView = 'paramountcies' | 'sub-stools' | 'regions' | 'users';
+
+const NAV: { view: View; label: string; short: string; icon: typeof GitBranch; adminOnly?: boolean }[] = [
+  { view: 'dashboard', label: 'Dashboard', short: 'Home', icon: LayoutDashboard },
+  { view: 'table', label: 'Registrations', short: 'Records', icon: TableIcon },
+  { view: 'tree', label: 'Family tree', short: 'Tree', icon: GitBranch },
+  { view: 'stools', label: 'Stools', short: 'Stools', icon: Crown },
+  { view: 'reports', label: 'Reports', short: 'Reports', icon: FileText },
+  { view: 'settings', label: 'Settings', short: 'Settings', icon: Settings, adminOnly: true }
+];
+
+const SETTINGS_ITEMS: { key: SettingsView; label: string; body: string; icon: typeof GitBranch }[] = [
+  { key: 'paramountcies', label: 'Paramountcies', body: 'Paramount stools and their seats', icon: Crown },
+  { key: 'sub-stools', label: 'Sub-stools', body: 'Divisional and town stools under each paramountcy', icon: Tent },
+  { key: 'regions', label: 'Regions', body: 'Administrative regions used for addresses', icon: MapPin },
+  { key: 'users', label: 'System users', body: 'Accounts, roles and access', icon: Shield }
+];
+
+const VIEW_SUBTITLE: Record<View, string> = {
+  dashboard: 'Overview of the register',
+  table: 'Every registered individual',
+  tree: 'Ancestors, descendants and immediate family',
+  stools: 'Chiefs, Queen Mothers and divisional wings',
+  reports: 'Lineage metrics, integrity checks and biographies',
+  settings: 'Reference data and system users'
+};
 
 interface Person {
   person_id: number;
@@ -73,8 +104,9 @@ function App() {
   const [ancestors, setAncestors] = useState<TreeNode[]>([]);
   const [descendants, setDescendants] = useState<TreeNode[]>([]);
   const [immediateFamily, setImmediateFamily] = useState<ImmediateFamily | null>(null);
-  const [activeView, setActiveView] = useState<'dashboard' | 'tree' | 'reports' | 'stools' | 'table'>('dashboard');
-  const [activeSettingsView, setActiveSettingsView] = useState<'paramountcies' | 'sub-stools' | 'regions' | 'users' | null>(null);
+  const [activeView, setActiveView] = useState<View>('dashboard');
+  const [activeSettingsView, setActiveSettingsView] = useState<SettingsView | null>(null);
+  const [drawer, setDrawer] = useState<'person' | 'relationship' | null>(null);
   const [editingRelationship, setEditingRelationship] = useState<any>(null);
   const [personRelationships, setPersonRelationships] = useState<any[]>([]);
 
@@ -144,6 +176,30 @@ function App() {
     setActivePerson(newPerson);
   };
 
+  // Created from the drawer: close it and show the new record beside its tree
+  const handleDrawerPersonCreated = (newPerson: Person) => {
+    handlePersonCreated(newPerson);
+    setDrawer(null);
+    goTo('tree');
+  };
+
+  const goTo = (view: View) => {
+    setActiveView(view);
+    setActiveSettingsView(null);
+  };
+
+  const closeDrawer = () => {
+    setDrawer(null);
+    setEditingRelationship(null);
+  };
+
+  useEffect(() => {
+    if (!drawer) return;
+    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') closeDrawer(); };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [drawer]);
+
   const handlePersonUpdated = (updated: Person) => {
     setPeople(prev => prev.map(p => p.person_id === updated.person_id ? updated : p));
     if (activePerson?.person_id === updated.person_id) {
@@ -163,6 +219,7 @@ function App() {
 
   const handleRelationshipCreated = () => {
     setEditingRelationship(null);
+    setDrawer(null);
     if (activePerson) {
       fetchActivePersonTree(activePerson.person_id);
       fetchPersonRelationships(activePerson.person_id);
@@ -211,185 +268,108 @@ function App() {
     return <Login onLoginSuccess={setCurrentUser} />;
   }
 
-  return (
-    <div className="app-container">
-      {/* Sidebar Left: Forms */}
-      <div className="sidebar">
-        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-          <GitBranch size={20} strokeWidth={1.5} style={{ color: 'var(--accent-primary)' }} />
-          <span style={{ fontSize: '16px', fontWeight: 600, color: 'var(--text-primary)' }}>
-            Family Tree Manager
-          </span>
-        </div>
+  const canWrite = currentUser.role === 'Admin' || currentUser.role === 'Manager';
+  const navItems = NAV.filter(item => !item.adminOnly || currentUser.role === 'Admin');
+  const currentNav = NAV.find(item => item.view === activeView) ?? NAV[0];
+  const settingsLabel = activeSettingsView ? SETTINGS_ITEMS.find(s => s.key === activeSettingsView)?.label : null;
+  const pageTitle = settingsLabel ?? currentNav.label;
+  const pageSubtitle = settingsLabel ? 'Settings' : VIEW_SUBTITLE[activeView];
 
-        {/* User Card */}
-        <div style={{
-          background: 'var(--bg-card)',
-          border: '1px solid var(--border-color)',
-          padding: '12px',
-          borderRadius: '10px',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          gap: '8px'
-        }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '10px', minWidth: 0 }}>
-            {currentUser.avatar_url ? (
-              <img
-                src={currentUser.avatar_url}
-                alt={currentUser.username}
-                style={{ width: '32px', height: '32px', borderRadius: '6px', objectFit: 'cover' }}
-              />
-            ) : (
-              <div style={{
-                background: 'var(--bg-raised)',
-                color: 'var(--text-secondary)',
-                width: '32px',
-                height: '32px',
-                borderRadius: '6px',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                flexShrink: 0,
-                fontSize: '13px',
-                fontWeight: 500
-              }}>
-                {currentUser.username.slice(0, 1).toUpperCase()}
-              </div>
-            )}
-            <div style={{ overflow: 'hidden' }}>
-              <div style={{ fontSize: '13px', fontWeight: 500, color: 'var(--text-primary)', textOverflow: 'ellipsis', overflow: 'hidden', whiteSpace: 'nowrap' }}>
-                {currentUser.username}
-              </div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '12px', color: 'var(--text-muted)', overflow: 'hidden', whiteSpace: 'nowrap', textOverflow: 'ellipsis' }}>
-                <span style={{
-                  width: '6px', height: '6px', borderRadius: '50%', flexShrink: 0,
-                  background: currentUser.role === 'Admin' ? 'var(--accent-primary)' : currentUser.role === 'Manager' ? 'var(--kente-rose)' : 'var(--kente-green)'
-                }} />
-                {currentUser.role}{currentUser.email ? ` · ${currentUser.email}` : ''}
-              </div>
-            </div>
-          </div>
-          <button
-            onClick={() => setCurrentUser(null)}
-            title="Sign out"
-            aria-label="Sign out"
-            style={{ background: 'transparent', color: 'var(--text-muted)', padding: '6px', borderRadius: '6px' }}
-          >
-            <LogOut size={16} strokeWidth={1.5} />
-          </button>
-        </div>
+  const personRecord = activePerson && immediateFamily ? (
+    <PersonDetails
+      person={activePerson}
+      immediateFamily={immediateFamily}
+      onNodeClick={handleNodeClick}
+      onPersonUpdated={handlePersonUpdated}
+      userRole={currentUser.role}
+      relationships={personRelationships}
+      people={people}
+      onEditRelationship={(rel: any) => { setEditingRelationship(rel); setDrawer('relationship'); }}
+      onDeleteRelationship={handleDeleteRelationship}
+    />
+  ) : null;
 
-        <PersonForm onPersonCreated={handlePersonCreated} userRole={currentUser.role} />
-        <RelationshipForm
-          key={editingRelationship?.relationship_id || 'new'}
-          people={people}
-          onRelationshipCreated={handleRelationshipCreated}
-          userRole={currentUser.role}
-          existingRelationship={editingRelationship}
-          onCancelEdit={() => setEditingRelationship(null)}
+  const emptyRegister = people.length > 0 ? (
+    <div className="empty-state">
+      <p>{activePerson ? 'Loading record…' : 'Find a person with the search above to see their record.'}</p>
+    </div>
+  ) : (
+    <div className="empty-state">
+      <AlertCircle size={40} strokeWidth={1.5} style={{ color: 'var(--text-muted)' }} />
+      <p>No individuals yet.</p>
+      {canWrite && (
+        <button className="btn-primary" onClick={() => setDrawer('person')}>
+          <UserPlus size={16} strokeWidth={1.5} /> Add the first individual
+        </button>
+      )}
+    </div>
+  );
+
+  const renderView = () => {
+    if (activeSettingsView) {
+      return (
+        <SettingsPanel
+          view={activeSettingsView}
+          onBack={() => setActiveSettingsView(null)}
+          currentUser={currentUser}
         />
-      </div>
-
-      {/* Center Stage Canvas */}
-      <div className="canvas-container">
-        <div className="canvas-header">
-          <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-            <div className="canvas-title">
-              {activeView === 'tree' ? 'Lineage tree' : 
-               activeView === 'table' ? 'Registrations' :
-               activeView === 'stools' ? 'Stools' :
-               activeView === 'reports' ? 'Reports' : 'Dashboard'}
-            </div>
-            <div className="view-tabs" role="tablist">
-              {([
-                ['dashboard', 'Dashboard'],
-                ['table', 'Registrations'],
-                ['tree', 'Lineage tree'],
-                ['reports', 'Reports'],
-                ['stools', 'Stools']
-              ] as const).map(([view, label]) => (
-                <button
-                  key={view}
-                  role="tab"
-                  aria-selected={activeView === view && !activeSettingsView}
-                  className={`view-tab ${activeView === view && !activeSettingsView ? 'active' : ''}`}
-                  onClick={() => { setActiveView(view); setActiveSettingsView(null); }}
-                >
-                  {view === 'table' && <TableIcon size={14} strokeWidth={1.5} />}
-                  {label}
+      );
+    }
+    switch (activeView) {
+      case 'dashboard':
+        return (
+          <Dashboards
+            currentUser={currentUser}
+            people={people}
+            activePerson={activePerson}
+            onNavigate={goTo}
+            onAddPerson={canWrite ? () => setDrawer('person') : undefined}
+            onAddRelationship={canWrite ? () => setDrawer('relationship') : undefined}
+          />
+        );
+      case 'table':
+        return (
+          <div className="view-scroll">
+            <IndividualRegistrationTable
+              people={people}
+              userRole={currentUser.role}
+              onPersonCreated={handlePersonCreated}
+              onPersonUpdated={handlePersonUpdated}
+              onPersonDeleted={handlePersonDeleted}
+              onSelectPerson={(person) => {
+                setActivePerson(person);
+                goTo('tree');
+              }}
+            />
+          </div>
+        );
+      case 'stools':
+        return <StoolsDashboard currentUser={currentUser} />;
+      case 'settings':
+        return (
+          <div className="view-scroll">
+            <div className="settings-grid">
+              {SETTINGS_ITEMS.map(item => (
+                <button key={item.key} type="button" className="dash-card" onClick={() => setActiveSettingsView(item.key)}>
+                  <span className="dash-card-top">
+                    <item.icon size={18} strokeWidth={1.5} />
+                    <ChevronRight size={16} strokeWidth={1.5} />
+                  </span>
+                  <span className="dash-card-title">{item.label}</span>
+                  <span className="dash-card-body">{item.body}</span>
                 </button>
               ))}
             </div>
           </div>
-          
-          {/* Active Canvas Search */}
-          <div className="search-container" style={{ width: '220px', pointerEvents: 'auto' }}>
-            <div style={{ position: 'relative' }}>
-              <input
-                type="text"
-                value={searchQuery}
-                onChange={e => setSearchQuery(e.target.value)}
-                onFocus={() => setIsSearchFocused(true)}
-                onBlur={() => setTimeout(() => setIsSearchFocused(false), 200)}
-                placeholder="Search people"
-                style={{ paddingLeft: '2rem' }}
-              />
-              <Search
-                size={16}
-                style={{ position: 'absolute', left: '0.75rem', top: '50%', transform: 'translateY(-50%)', color: 'var(--text-secondary)' }}
-              />
-            </div>
-            {isSearchFocused && searchQuery.trim() !== '' && filteredSearch.length > 0 && (
-              <div className="search-results-dropdown">
-                {filteredSearch.map(p => (
-                  <div
-                    key={p.person_id}
-                    className="search-result-item"
-                    onMouseDown={() => {
-                      setActivePerson(p);
-                      setSearchQuery('');
-                    }}
-                  >
-                    {p.first_name} {p.last_name}
-                  </div>
-                ))}
-              </div>
-            )}
-          </div>
-        </div>
-
-        {activeSettingsView ? (
-          <SettingsPanel 
-            view={activeSettingsView} 
-            onBack={() => setActiveSettingsView(null)} 
-            currentUser={currentUser} 
-          />
-        ) : activeView === 'table' ? (
-          <IndividualRegistrationTable
-            people={people}
-            userRole={currentUser.role}
-            onPersonCreated={handlePersonCreated}
-            onPersonUpdated={handlePersonUpdated}
-            onPersonDeleted={handlePersonDeleted}
-            onSelectPerson={(person) => {
-              setActivePerson(person);
-              setActiveView('tree');
-            }}
-          />
-        ) : activeView === 'dashboard' ? (
-          <Dashboards 
-            currentUser={currentUser} 
-            onNavigate={(view) => { setActiveView(view); setActiveSettingsView(null); }} 
-            onOpenSettings={setActiveSettingsView}
-          />
-        ) : activeView === 'stools' ? (
-          <StoolsDashboard currentUser={currentUser} />
-        ) : activePerson && immediateFamily ? (
-          activeView === 'reports' ? (
-            <ReportsDashboard activePerson={activePerson} onSelectPerson={handleNodeClick} />
-          ) : (
-            <div className="canvas-wrapper">
+        );
+      case 'reports':
+        return activePerson && immediateFamily
+          ? <ReportsDashboard activePerson={activePerson} onSelectPerson={handleNodeClick} />
+          : emptyRegister;
+      case 'tree':
+        return activePerson && immediateFamily ? (
+          <div className="tree-layout">
+            <div className="tree-canvas">
               <FamilyTree
                 activePerson={activePerson}
                 ancestors={ancestors}
@@ -398,31 +378,151 @@ function App() {
                 onNodeClick={handleNodeClick}
               />
             </div>
-          )
-        ) : (
-          <div style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '1rem', color: 'var(--text-secondary)' }}>
-            <AlertCircle size={48} style={{ color: 'var(--text-muted)' }} />
-            <p style={{ fontSize: '0.95rem' }}>No individuals yet. Add the first person from the left panel</p>
+            {personRecord}
           </div>
-        )}
-      </div>
+        ) : emptyRegister;
+    }
+  };
 
-      {/* Sidebar Right: Vitals details panel */}
-      {activePerson && immediateFamily ? (
-        <PersonDetails
-          person={activePerson}
-          immediateFamily={immediateFamily}
-          onNodeClick={handleNodeClick}
-          onPersonUpdated={handlePersonUpdated}
-          userRole={currentUser.role}
-          relationships={personRelationships}
-          people={people}
-          onEditRelationship={(rel: any) => setEditingRelationship(rel)}
-          onDeleteRelationship={handleDeleteRelationship}
-        />
-      ) : (
-        <div className="sidebar-right" style={{ justifyContent: 'center', alignItems: 'center', color: 'var(--text-muted)' }}>
-          <p style={{ fontSize: '0.85rem' }}>Select a person to see their record</p>
+  return (
+    <div className="app-shell">
+      {/* Primary navigation: a rail on desktop, a bottom tab bar on phones */}
+      <nav className="app-nav" aria-label="Primary">
+        <div className="brand">
+          <GitBranch size={20} strokeWidth={1.5} style={{ color: 'var(--accent-primary)' }} />
+          <span>Family Tree Manager</span>
+        </div>
+
+        <div className="nav-list">
+          {navItems.map(item => {
+            const active = activeView === item.view;
+            return (
+              <button
+                key={item.view}
+                type="button"
+                className={`nav-item ${active ? 'active' : ''}`}
+                aria-current={active ? 'page' : undefined}
+                onClick={() => goTo(item.view)}
+              >
+                <item.icon size={18} strokeWidth={1.5} />
+                <span className="nav-label">{item.label}</span>
+                <span className="nav-short">{item.short}</span>
+              </button>
+            );
+          })}
+        </div>
+
+        <div className="nav-user">
+          {currentUser.avatar_url ? (
+            <img className="avatar" src={currentUser.avatar_url} alt="" />
+          ) : (
+            <div className="avatar">{currentUser.username.slice(0, 1).toUpperCase()}</div>
+          )}
+          <div className="nav-user-text">
+            <div className="nav-user-name">{currentUser.username}</div>
+            <div className="nav-user-role">
+              <span className={`role-dot role-${currentUser.role.toLowerCase()}`} />
+              {currentUser.role}
+            </div>
+          </div>
+          <button
+            className="icon-btn"
+            onClick={() => setCurrentUser(null)}
+            title="Sign out"
+            aria-label="Sign out"
+          >
+            <LogOut size={16} strokeWidth={1.5} />
+          </button>
+        </div>
+      </nav>
+
+      <main className="app-main">
+        <header className="topbar">
+          <div className="topbar-title">
+            <h1>{pageTitle}</h1>
+            <p>{pageSubtitle}</p>
+          </div>
+
+          <div className="topbar-actions">
+            <div className="search-container topbar-search">
+              <Search size={16} strokeWidth={1.5} className="search-icon" />
+              <input
+                type="search"
+                value={searchQuery}
+                onChange={e => setSearchQuery(e.target.value)}
+                onFocus={() => setIsSearchFocused(true)}
+                onBlur={() => setTimeout(() => setIsSearchFocused(false), 200)}
+                placeholder="Find a person"
+                aria-label="Find a person"
+              />
+              {isSearchFocused && searchQuery.trim() !== '' && (
+                <div className="search-results-dropdown">
+                  {filteredSearch.length === 0 ? (
+                    <div className="search-result-empty">No one matches “{searchQuery}”</div>
+                  ) : filteredSearch.map(p => (
+                    <div
+                      key={p.person_id}
+                      className="search-result-item"
+                      onMouseDown={() => {
+                        setActivePerson(p);
+                        setSearchQuery('');
+                        if (activeView !== 'reports') goTo('tree');
+                      }}
+                    >
+                      {p.first_name} {p.last_name}
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+            {canWrite && (
+              <>
+                <button
+                  className="btn-secondary topbar-btn"
+                  title="Establish relationship"
+                  onClick={() => { setEditingRelationship(null); setDrawer('relationship'); }}
+                >
+                  <Link2 size={16} strokeWidth={1.5} />
+                  <span className="topbar-btn-label">Relationship</span>
+                </button>
+                <button className="btn-primary topbar-btn" title="Add individual" onClick={() => setDrawer('person')}>
+                  <UserPlus size={16} strokeWidth={1.5} />
+                  <span className="topbar-btn-label">Add individual</span>
+                </button>
+              </>
+            )}
+          </div>
+        </header>
+
+        <div className="view-area">
+          {renderView()}
+        </div>
+      </main>
+
+      {drawer && (
+        <div className="drawer-backdrop" onMouseDown={e => { if (e.target === e.currentTarget) closeDrawer(); }}>
+          <aside
+            className="drawer"
+            role="dialog"
+            aria-modal="true"
+            aria-label={drawer === 'person' ? 'Add individual' : 'Relationship'}
+          >
+            <button className="icon-btn drawer-close" onClick={closeDrawer} aria-label="Close">
+              <X size={18} strokeWidth={1.5} />
+            </button>
+            {drawer === 'person' ? (
+              <PersonForm onPersonCreated={handleDrawerPersonCreated} userRole={currentUser.role} />
+            ) : (
+              <RelationshipForm
+                key={editingRelationship?.relationship_id || 'new'}
+                people={people}
+                onRelationshipCreated={handleRelationshipCreated}
+                userRole={currentUser.role}
+                existingRelationship={editingRelationship}
+                onCancelEdit={closeDrawer}
+              />
+            )}
+          </aside>
         </div>
       )}
     </div>

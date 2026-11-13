@@ -160,7 +160,7 @@ export const PersonDetails: React.FC<PersonDetailsProps> = ({
   );
 
   return (
-    <div className="sidebar-right">
+    <div className="record-panel">
       {/* ── Vital Statistics Card ── */}
       <div className="glass-card">
         <div className="glass-card-header" style={{ justifyContent: 'space-between' }}>

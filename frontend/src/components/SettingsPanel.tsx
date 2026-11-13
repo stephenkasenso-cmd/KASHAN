@@ -273,9 +273,9 @@ export const SettingsPanel: React.FC<SettingsPanelProps> = ({ view, onBack, curr
   };
 
   return (
-    <div style={{ padding: '6rem 2rem 2rem 2rem', height: '100%', overflowY: 'auto' }}>
+    <div className="view-pad" style={{ height: '100%', overflowY: 'auto' }}>
       <button onClick={onBack} className="btn-secondary" style={{ marginBottom: '1.5rem', padding: '0.5rem 1rem' }}>
-        <ArrowLeft size={16} /> Back to Dashboard
+        <ArrowLeft size={16} /> Back to Settings
       </button>
 
       <div className="glass-card" style={{ minHeight: '400px' }}>

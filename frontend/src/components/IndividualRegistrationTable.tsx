@@ -179,7 +179,7 @@ GPS Address: ${person.gps_address || 'N/A'}
   const canEditOrDelete = userRole === 'Admin' || userRole === 'Manager';
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem', padding: '1rem', width: '100%', boxSizing: 'border-box' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem', width: '100%', boxSizing: 'border-box' }}>
       
       {/* Toast Notification */}
       {toastMessage && (
