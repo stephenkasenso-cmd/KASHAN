@@ -15,51 +15,83 @@ interface StoolOccupancy {
   };
 }
 
+interface RoyalPerson {
+  person_id: number;
+  first_name: string;
+  last_name: string;
+  enstoolment_date?: string | null;
+  birth_date?: string | null;
+  death_date?: string | null;
+  is_living: boolean;
+  clan_id?: number | null;
+}
+
+interface ClanApi {
+  id: number;
+  name: string;
+}
+
 interface HistoricalLineageProps {
-  jurisdictionId: number;
   titleType: 'CHIEF' | 'QUEEN_MOTHER';
 }
 
-export const HistoricalLineage: React.FC<HistoricalLineageProps> = ({ jurisdictionId, titleType }) => {
+export const HistoricalLineage: React.FC<HistoricalLineageProps> = ({ titleType }) => {
   const [lineage, setLineage] = useState<StoolOccupancy[]>([]);
   const [loading, setLoading] = useState(true);
-  const [error] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    // Providing placeholder data to demonstrate UI structure since endpoint is not yet defined
-    setTimeout(() => {
-      setLineage([
-        {
-          id: 1,
-          stoolName: titleType === 'CHIEF' ? 'Nana Osei Tutu II' : 'Nana Konadu Yiadom III',
-          startDate: '1999-04-26',
-          endDate: null,
-          isActive: true,
-          person: { name: 'Nana Barima Kwaku Duah', abusua: { name: 'Oyoko' } }
-        },
-        {
-          id: 2,
-          stoolName: titleType === 'CHIEF' ? 'Opoku Ware II' : 'Nana Afia Kobi Serwaa Ampem II',
-          startDate: '1970-07-27',
-          endDate: '1999-02-25',
-          isActive: false,
-          person: { name: 'Jacob Matthew Poku', abusua: { name: 'Oyoko' } }
-        },
-        {
-          id: 3,
-          stoolName: titleType === 'CHIEF' ? 'Osei Tutu Agyeman Prempeh II' : 'Nana Ama Serwaa Nyarko',
-          startDate: '1931-06-22',
-          endDate: '1970-05-27',
-          isActive: false,
-          person: { name: 'Kwame Kyeretwie', abusua: { name: 'Oyoko' } }
-        }
-      ]);
-      setLoading(false);
-    }, 500);
-  }, [jurisdictionId, titleType]);
+    let cancelled = false;
+    const endpoint = titleType === 'CHIEF' ? '/api/people/royals/asantehenes' : '/api/people/royals/asantehemaas';
+    setLoading(true);
+    setError(null);
 
-  const formatYear = (dateString: string | null) => {
-    if (!dateString) return 'Present';
+    Promise.all([
+      fetch(endpoint).then(r => {
+        if (!r.ok) throw new Error('Failed to load lineage records');
+        return r.json();
+      }),
+      fetch('/api/royal/clans').then(r => (r.ok ? r.json() : [])).catch(() => [])
+    ])
+      .then(([people, clans]: [RoyalPerson[], ClanApi[]]) => {
+        if (cancelled) return;
+        const clanById = new Map((Array.isArray(clans) ? clans : []).map(c => [c.id, c.name]));
+        const entries: StoolOccupancy[] = (Array.isArray(people) ? people : []).map(p => {
+          const clanName = p.clan_id != null ? clanById.get(p.clan_id) : undefined;
+          return {
+            id: p.person_id,
+            stoolName: `${p.first_name} ${p.last_name}`.trim(),
+            startDate: p.enstoolment_date || p.birth_date || '',
+            endDate: p.is_living ? null : (p.death_date || null),
+            isActive: p.is_living,
+            person: {
+              name: `${p.first_name} ${p.last_name}`.trim(),
+              abusua: clanName ? { name: clanName } : undefined
+            }
+          };
+        });
+        // Most recent first; undated entries last
+        entries.sort((a, b) => {
+          const ta = a.startDate ? new Date(a.startDate).getTime() : -Infinity;
+          const tb = b.startDate ? new Date(b.startDate).getTime() : -Infinity;
+          return tb - ta;
+        });
+        setLineage(entries);
+      })
+      .catch((err: Error) => {
+        if (!cancelled) setError(err.message);
+      })
+      .finally(() => {
+        if (!cancelled) setLoading(false);
+      });
+
+    return () => {
+      cancelled = true;
+    };
+  }, [titleType]);
+
+  const formatYear = (dateString: string | null, fallback = 'Present') => {
+    if (!dateString) return fallback;
     return new Date(dateString).getFullYear().toString();
   };
 
@@ -70,8 +102,12 @@ export const HistoricalLineage: React.FC<HistoricalLineageProps> = ({ jurisdicti
     <div className="glass-card" style={{ padding: '2rem' }}>
       <h3 style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '1.25rem', fontFamily: 'var(--font-display)', fontWeight: 700, marginBottom: '2rem' }}>
         <History size={20} style={{ color: 'var(--accent-primary)' }} />
-        Historical Lineage Ledger
+        {titleType === 'CHIEF' ? 'Asantehene Lineage Ledger' : 'Asantehemaa Lineage Ledger'}
       </h3>
+
+      {lineage.length === 0 && (
+        <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem' }}>No lineage records found.</p>
+      )}
 
       <div style={{ position: 'relative', paddingLeft: '1.5rem', borderLeft: '2px solid rgba(255,255,255,0.1)' }}>
         {lineage.map((occ, index) => (
@@ -101,14 +137,16 @@ export const HistoricalLineage: React.FC<HistoricalLineageProps> = ({ jurisdicti
                   <h4 style={{ fontSize: '1.25rem', fontWeight: 700, color: occ.isActive ? 'var(--accent-primary)' : 'var(--text-primary)', marginBottom: '0.25rem' }}>
                     {occ.stoolName}
                   </h4>
-                  <div style={{ fontSize: '0.95rem', color: 'var(--text-secondary)' }}>
-                    Biological Name: <span style={{ color: 'var(--text-primary)' }}>{occ.person.name}</span>
-                  </div>
+                  {occ.person.name !== occ.stoolName && (
+                    <div style={{ fontSize: '0.95rem', color: 'var(--text-secondary)' }}>
+                      Biological Name: <span style={{ color: 'var(--text-primary)' }}>{occ.person.name}</span>
+                    </div>
+                  )}
                 </div>
                 
                 <div style={{ background: 'rgba(0,0,0,0.3)', padding: '0.5rem 1rem', borderRadius: '20px', fontSize: '0.9rem', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                   <Shield size={14} style={{ color: occ.isActive ? 'var(--accent-primary)' : 'var(--text-secondary)' }} />
-                  {formatYear(occ.startDate)} – {formatYear(occ.endDate)}
+                  {formatYear(occ.startDate, '?')} – {occ.isActive ? 'Present' : formatYear(occ.endDate, '?')}
                 </div>
               </div>
 

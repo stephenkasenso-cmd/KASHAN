@@ -11,6 +11,19 @@ interface Jurisdiction {
   name: string;
   isParamountcy: boolean;
   parentId: number | null;
+  regionName: string | null;
+}
+
+interface ParamountcyApi {
+  id: number;
+  name: string;
+  region?: { name: string } | null;
+}
+
+interface SubStoolApi {
+  id: number;
+  name: string;
+  paramountcy_id: number;
 }
 
 interface EnthronementFormProps {
@@ -36,10 +49,37 @@ export const EnthronementForm: React.FC<EnthronementFormProps> = ({ onSuccess, o
   const [submitting, setSubmitting] = useState(false);
 
   useEffect(() => {
-    // Ideally these would point to specialized endpoints returning the Abusua and Jurisdiction lists
-    // using placeholder paths until the GET endpoints for these are generated
-    fetch('/api/abusuas').then(r => r.json()).then(setAbusuas).catch(() => {});
-    fetch('/api/jurisdictions').then(r => r.json()).then(setJurisdictions).catch(() => {});
+    // Abusua = matrilineal clan; jurisdictions = paramountcies plus their sub-stools
+    fetch('/api/royal/clans')
+      .then(r => (r.ok ? r.json() : []))
+      .then((data: Abusua[]) => setAbusuas(Array.isArray(data) ? data : []))
+      .catch(() => {});
+
+    Promise.all([
+      fetch('/api/royal/paramountcies').then(r => (r.ok ? r.json() : [])),
+      fetch('/api/royal/sub-stools').then(r => (r.ok ? r.json() : []))
+    ])
+      .then(([params, subs]: [ParamountcyApi[], SubStoolApi[]]) => {
+        const regionById = new Map<number, string | null>();
+        const list: Jurisdiction[] = [];
+        (Array.isArray(params) ? params : []).forEach(p => {
+          const regionName = p.region?.name ?? null;
+          regionById.set(p.id, regionName);
+          list.push({ id: p.id, name: p.name, isParamountcy: true, parentId: null, regionName });
+        });
+        (Array.isArray(subs) ? subs : []).forEach(s => {
+          list.push({
+            // Offset sub-stool ids so they never collide with paramountcy ids in the select values
+            id: -s.id,
+            name: s.name,
+            isParamountcy: false,
+            parentId: s.paramountcy_id,
+            regionName: regionById.get(s.paramountcy_id) ?? null
+          });
+        });
+        setJurisdictions(list);
+      })
+      .catch(() => {});
   }, []);
 
   const paramountcies = jurisdictions.filter(j => j.isParamountcy);
@@ -52,28 +92,42 @@ export const EnthronementForm: React.FC<EnthronementFormProps> = ({ onSuccess, o
     setError(null);
     setSubmitting(true);
 
-    const jurisdictionId = selectedSubDivisionId || selectedParamountcyId;
-
-    if (!name || !abusuaId || !stoolName || !jurisdictionId || !startDate) {
+    if (!name || !abusuaId || !stoolName || !selectedParamountcyId || !startDate) {
       setError("Please fill out all required fields.");
       setSubmitting(false);
       return;
     }
 
     try {
-      const response = await fetch('/api/traditional-leaders/enthrone', {
+      const paramountcy = jurisdictions.find(j => j.isParamountcy && j.id === parseInt(selectedParamountcyId));
+      const subDivision = selectedSubDivisionId
+        ? jurisdictions.find(j => !j.isParamountcy && j.id === parseInt(selectedSubDivisionId))
+        : undefined;
+      const clan = abusuas.find(a => a.id === parseInt(abusuaId));
+      const isSub = Boolean(subDivision);
+      const rank = titleType === 'CHIEF'
+        ? (isSub ? 'DIVISIONAL_CHIEF' : 'AMANHENE')
+        : (isSub ? 'DIVISIONAL_QUEEN_MOTHER' : 'AMANHEMAA');
+      const region = (paramountcy?.regionName || 'Ashanti').replace(/\s+Region$/i, '');
+      const seat = subDivision?.name || paramountcy?.name || '';
+
+      const response = await fetch('/api/traditional-stools', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
           'x-user-role': userRole || '',
         },
         body: JSON.stringify({
-          name,
-          abusuaId: parseInt(abusuaId),
           stoolName,
-          titleType,
-          jurisdictionId: parseInt(jurisdictionId),
-          startDate
+          title: stoolName,
+          town: seat,
+          region,
+          category: isSub ? 'DIVISIONAL_SUB' : 'REGIONAL_PARAMOUNT',
+          rank,
+          currentOccupant: name,
+          clan: clan?.name || null,
+          seatLocation: seat,
+          enstoolmentDate: startDate
         })
       });
 

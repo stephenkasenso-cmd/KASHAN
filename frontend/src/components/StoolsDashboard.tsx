@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Search, MapPin, Shield, Crown, Plus, X, Upload, Trash2, Layers } from 'lucide-react';
+import { Search, MapPin, Shield, Crown, Plus, X, Upload, Trash2, Layers, History } from 'lucide-react';
+import { EnthronementForm } from './EnthronementForm';
+import { HistoricalLineage } from './HistoricalLineage';
 
 interface UserSession {
   user_id: number;
@@ -103,7 +105,8 @@ const REGIONS = [
 export const StoolsDashboard: React.FC<StoolsDashboardProps> = ({ currentUser }) => {
   const [stools, setStools] = useState<TraditionalStool[]>([]);
   const [loading, setLoading] = useState(true);
-  const [activeTab, setActiveTab] = useState<'chiefs' | 'queenMothers'>('chiefs');
+  const [activeTab, setActiveTab] = useState<'chiefs' | 'queenMothers' | 'lineage'>('chiefs');
+  const [isEnthroneOpen, setIsEnthroneOpen] = useState(false);
   
   // Search & Filters
   const [filterClan, setFilterClan] = useState('');
@@ -371,9 +374,14 @@ export const StoolsDashboard: React.FC<StoolsDashboardProps> = ({ currentUser })
           </p>
         </div>
         {isWriteAllowed && (
-          <button className="btn-primary" onClick={openAddModal} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-            <Plus size={18} /> Add Traditional Stool
-          </button>
+          <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}>
+            <button className="btn-secondary" onClick={() => setIsEnthroneOpen(true)} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+              <Crown size={18} /> Enthrone Leader
+            </button>
+            <button className="btn-primary" onClick={openAddModal} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+              <Plus size={18} /> Add Traditional Stool
+            </button>
+          </div>
         )}
       </div>
 
@@ -419,7 +427,34 @@ export const StoolsDashboard: React.FC<StoolsDashboardProps> = ({ currentUser })
         >
           <Shield size={18} /> Queen Mothers & Matriarchs
         </button>
+        <button 
+          onClick={() => setActiveTab('lineage')}
+          className={`tab-btn ${activeTab === 'lineage' ? 'active' : ''}`}
+          style={{
+            background: activeTab === 'lineage' ? 'rgba(255, 255, 255, 0.08)' : 'transparent',
+            border: 'none',
+            color: activeTab === 'lineage' ? 'var(--text-primary)' : 'var(--text-secondary)',
+            padding: '0.75rem 1.5rem',
+            borderRadius: '8px',
+            cursor: 'pointer',
+            fontSize: '1rem',
+            fontWeight: 600,
+            display: 'flex',
+            alignItems: 'center',
+            gap: '0.5rem',
+            transition: 'all 0.2s'
+          }}
+        >
+          <History size={18} /> Historical Lineage
+        </button>
       </div>
+
+      {activeTab === 'lineage' ? (
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '1.5rem' }}>
+          <HistoricalLineage titleType="CHIEF" />
+          <HistoricalLineage titleType="QUEEN_MOTHER" />
+        </div>
+      ) : (<>
 
       {/* Filters Bar */}
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1rem', marginBottom: '2.5rem' }}>
@@ -633,6 +668,25 @@ export const StoolsDashboard: React.FC<StoolsDashboardProps> = ({ currentUser })
           </div>
         );
       })}
+
+      </>)}
+
+      {/* Enthronement Modal */}
+      {isEnthroneOpen && (
+        <div style={{
+          position: 'fixed', top: 0, left: 0, right: 0, bottom: 0,
+          background: 'rgba(0, 0, 0, 0.7)', backdropFilter: 'blur(8px)',
+          display: 'flex', justifyContent: 'center', alignItems: 'center', zIndex: 1000, padding: '2rem'
+        }}>
+          <div style={{ width: '100%', maxWidth: '650px', maxHeight: '90vh', overflowY: 'auto' }}>
+            <EnthronementForm
+              userRole={currentUser.role}
+              onCancel={() => setIsEnthroneOpen(false)}
+              onSuccess={async () => { setIsEnthroneOpen(false); await fetchStools(); }}
+            />
+          </div>
+        </div>
+      )}
 
       {/* Unified Create / Edit Modal */}
       {isModalOpen && (

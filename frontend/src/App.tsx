@@ -302,11 +302,12 @@ function App() {
             <div className="canvas-title">
               {activeView === 'tree' ? 'Interactive Lineage Canvas' : 
                activeView === 'table' ? 'Individual Registration Directory' :
-               activeView === 'stools' ? 'Paramount Stools' : 'Family Reports Dashboard'}
+               activeView === 'stools' ? 'Paramount Stools' :
+               activeView === 'reports' ? 'Family Reports' : 'Dashboard'}
             </div>
             <div style={{ display: 'flex', gap: '0.25rem', pointerEvents: 'auto' }}>
               <button
-                onClick={() => setActiveView('dashboard')}
+                onClick={() => { setActiveView('dashboard'); setActiveSettingsView(null); }}
                 style={{
                   background: activeView === 'dashboard' ? 'var(--accent-gradient)' : 'rgba(255, 255, 255, 0.03)',
                   color: 'white',
@@ -320,7 +321,7 @@ function App() {
                 Dashboard
               </button>
               <button
-                onClick={() => setActiveView('table')}
+                onClick={() => { setActiveView('table'); setActiveSettingsView(null); }}
                 style={{
                   background: activeView === 'table' ? 'var(--accent-gradient)' : 'rgba(255, 255, 255, 0.03)',
                   color: 'white',
@@ -337,7 +338,7 @@ function App() {
                 <TableIcon size={13} /> Registrations Table
               </button>
               <button
-                onClick={() => setActiveView('tree')}
+                onClick={() => { setActiveView('tree'); setActiveSettingsView(null); }}
                 style={{
                   background: activeView === 'tree' ? 'var(--accent-gradient)' : 'rgba(255, 255, 255, 0.03)',
                   color: 'white',
@@ -349,6 +350,34 @@ function App() {
                 }}
               >
                 Lineage Tree
+              </button>
+              <button
+                onClick={() => { setActiveView('reports'); setActiveSettingsView(null); }}
+                style={{
+                  background: activeView === 'reports' ? 'var(--accent-gradient)' : 'rgba(255, 255, 255, 0.03)',
+                  color: 'white',
+                  padding: '0.35rem 0.65rem',
+                  fontSize: '0.75rem',
+                  border: 'none',
+                  borderRadius: '4px',
+                  cursor: 'pointer'
+                }}
+              >
+                Reports
+              </button>
+              <button
+                onClick={() => { setActiveView('stools'); setActiveSettingsView(null); }}
+                style={{
+                  background: activeView === 'stools' ? 'var(--accent-gradient)' : 'rgba(255, 255, 255, 0.03)',
+                  color: 'white',
+                  padding: '0.35rem 0.65rem',
+                  fontSize: '0.75rem',
+                  border: 'none',
+                  borderRadius: '4px',
+                  cursor: 'pointer'
+                }}
+              >
+                Stools
               </button>
             </div>
           </div>
