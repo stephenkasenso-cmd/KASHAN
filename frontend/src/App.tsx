@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { readJson } from './lib/api';
 import { FamilyTree } from './components/FamilyTree';
 import { PersonDetails } from './components/PersonDetails';
 import { PersonForm } from './components/PersonForm';
@@ -93,7 +94,7 @@ function App() {
   const fetchPeopleList = async () => {
     try {
       const response = await fetch('/api/people');
-      const data = await response.json();
+      const data = await readJson(response);
       if (response.ok) {
         setPeople(data);
         if (data.length > 0 && !activePerson) {
@@ -114,9 +115,9 @@ function App() {
         fetch(`/api/people/${personId}/descendants?generations=5`)
       ]);
 
-      const familyData = await familyRes.json();
-      const ancestorsData = await ancestorsRes.json();
-      const descendantsData = await descendantsRes.json();
+      const familyData = await readJson(familyRes);
+      const ancestorsData = await readJson(ancestorsRes);
+      const descendantsData = await readJson(descendantsRes);
 
       if (familyRes.ok) setImmediateFamily(familyData);
       if (ancestorsRes.ok) setAncestors(ancestorsData);

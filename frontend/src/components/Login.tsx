@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { KeyRound, User, AlertCircle, GitBranch, ChevronRight } from 'lucide-react';
 import { GoogleLogin, type CredentialResponse } from '@react-oauth/google';
 import { jwtDecode } from 'jwt-decode';
+import { readJson, errorMessage } from '../lib/api';
 
 export interface UserSession {
   user_id: number;
@@ -42,7 +43,7 @@ export const Login: React.FC<LoginProps> = ({ onLoginSuccess }) => {
         body: JSON.stringify({ username: cleanUsername, password: cleanPassword }),
       });
 
-      const data = await response.json();
+      const data = await readJson(response);
 
       if (response.ok) {
         onLoginSuccess(data);
@@ -51,7 +52,7 @@ export const Login: React.FC<LoginProps> = ({ onLoginSuccess }) => {
       }
     } catch (err) {
       console.error(err);
-      setError('Could not reach the server');
+      setError(errorMessage(err, 'Could not reach the server'));
     } finally {
       setLoading(false);
     }
@@ -79,7 +80,7 @@ export const Login: React.FC<LoginProps> = ({ onLoginSuccess }) => {
         body: JSON.stringify({ email, google_id, name, avatar_url }),
       });
 
-      const data = await response.json();
+      const data = await readJson(response);
 
       if (response.ok) {
         onLoginSuccess(data);
@@ -88,7 +89,7 @@ export const Login: React.FC<LoginProps> = ({ onLoginSuccess }) => {
       }
     } catch (err: any) {
       console.error('Google auth error:', err);
-      setError('Google sign-in failed, try again');
+      setError(errorMessage(err, 'Google sign-in failed, try again'));
     } finally {
       setLoading(false);
     }
@@ -114,7 +115,7 @@ export const Login: React.FC<LoginProps> = ({ onLoginSuccess }) => {
         }),
       });
 
-      const data = await response.json();
+      const data = await readJson(response);
       if (response.ok) {
         onLoginSuccess(data);
       } else {
@@ -122,7 +123,7 @@ export const Login: React.FC<LoginProps> = ({ onLoginSuccess }) => {
       }
     } catch (err) {
       console.error(err);
-      setError('Could not reach the server');
+      setError(errorMessage(err, 'Could not reach the server'));
     } finally {
       setLoading(false);
     }
@@ -142,7 +143,7 @@ export const Login: React.FC<LoginProps> = ({ onLoginSuccess }) => {
         body: JSON.stringify({ username: quickUsername, password: quickPassword }),
       });
 
-      const data = await response.json();
+      const data = await readJson(response);
 
       if (response.ok) {
         onLoginSuccess(data);
@@ -151,7 +152,7 @@ export const Login: React.FC<LoginProps> = ({ onLoginSuccess }) => {
       }
     } catch (err) {
       console.error(err);
-      setError('Could not reach the server');
+      setError(errorMessage(err, 'Could not reach the server'));
     } finally {
       setLoading(false);
     }
