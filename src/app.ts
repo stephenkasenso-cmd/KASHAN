@@ -67,7 +67,17 @@ app.use(express.json({ limit: '10mb' }));
 
 // Serve static assets from frontend build directory
 const frontendDistPath = path.join(process.cwd(), 'frontend', 'dist');
-app.use(express.static(frontendDistPath));
+app.use(express.static(frontendDistPath, {
+  // index.html must never be cached: after a rebuild it points at new hashed
+  // bundles, and a stale copy would request JS files that no longer exist.
+  setHeaders: (res, filePath) => {
+    if (filePath.endsWith('.html')) {
+      res.setHeader('Cache-Control', 'no-cache');
+    } else if (filePath.includes(`${path.sep}assets${path.sep}`)) {
+      res.setHeader('Cache-Control', 'public, max-age=31536000, immutable');
+    }
+  }
+}));
 
 // Auto-seed default users
 seedDefaultUsers().catch(err => {
@@ -162,7 +172,15 @@ app.get('*', (req: Request, res: Response, next: NextFunction) => {
   if (req.path.startsWith('/api')) {
     return next();
   }
+  // A request for a file (script, stylesheet, image...) that express.static did
+  // not find is a real 404. Answering it with index.html makes the browser
+  // reject the "script" with a text/html MIME error and leaves a white screen.
+  if (path.extname(req.path)) {
+    res.status(404).type('text/plain').send(`Not found: ${req.path}`);
+    return;
+  }
   const indexPath = path.join(frontendDistPath, 'index.html');
+  res.setHeader('Cache-Control', 'no-cache');
   res.sendFile(indexPath, (err) => {
     if (err) {
       res.status(200).send(`
@@ -172,6 +190,10 @@ app.get('*', (req: Request, res: Response, next: NextFunction) => {
         <body style="font-family: system-ui; padding: 2rem; background: #0f172a; color: #f8fafc;">
           <h1>👑 Asanteman Traditional Leadership & Lineage API</h1>
           <p>Backend API service is online.</p>
+          <p>The frontend has not been built, so there is no app to serve here.
+            In development open the Vite dev server at
+            <a href="http://localhost:5173" style="color: #38bdf8;">http://localhost:5173</a>
+            (<code>npm run dev:all</code>), or run <code>npm run build</code> first.</p>
           <p>Health Check: <a href="/health" style="color: #38bdf8;">/health</a></p>
         </body>
         </html>
