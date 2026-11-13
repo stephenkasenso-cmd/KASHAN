@@ -95,21 +95,21 @@ export const HistoricalLineage: React.FC<HistoricalLineageProps> = ({ titleType 
     return new Date(dateString).getFullYear().toString();
   };
 
-  if (loading) return <div style={{ padding: '2rem', textAlign: 'center' }}>Loading lineage...</div>;
-  if (error) return <div style={{ padding: '2rem', color: '#ff6b6b' }}>{error}</div>;
+  if (loading) return <div style={{ padding: '2rem', textAlign: 'center' }}>Loading lineage…</div>;
+  if (error) return <div style={{ padding: '2rem', color: 'var(--kente-clay-ink)' }}>{error}</div>;
 
   return (
     <div className="glass-card" style={{ padding: '2rem' }}>
-      <h3 style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '1.25rem', fontFamily: 'var(--font-display)', fontWeight: 700, marginBottom: '2rem' }}>
+      <h3 style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '1.25rem', fontFamily: 'var(--font-sans)', fontWeight: 500, marginBottom: '2rem' }}>
         <History size={20} style={{ color: 'var(--accent-primary)' }} />
         {titleType === 'CHIEF' ? 'Asantehene Lineage Ledger' : 'Asantehemaa Lineage Ledger'}
       </h3>
 
       {lineage.length === 0 && (
-        <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem' }}>No lineage records found.</p>
+        <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem' }}>No lineage records yet</p>
       )}
 
-      <div style={{ position: 'relative', paddingLeft: '1.5rem', borderLeft: '2px solid rgba(255,255,255,0.1)' }}>
+      <div style={{ position: 'relative', paddingLeft: '1.5rem', borderLeft: '2px solid rgba(239, 233, 222, 0.1)' }}>
         {lineage.map((occ, index) => (
           <div key={occ.id} style={{ position: 'relative', marginBottom: index === lineage.length - 1 ? 0 : '2rem' }}>
             {/* Timeline dot */}
@@ -120,21 +120,21 @@ export const HistoricalLineage: React.FC<HistoricalLineageProps> = ({ titleType 
               width: '16px',
               height: '16px',
               borderRadius: '50%',
-              background: occ.isActive ? 'var(--accent-primary)' : 'rgba(255,255,255,0.2)',
+              background: occ.isActive ? 'var(--accent-primary)' : 'rgba(239, 233, 222, 0.2)',
               border: '3px solid var(--bg-card)',
               zIndex: 1
             }}></div>
             
             <div style={{ 
-              background: 'rgba(255,255,255,0.02)', 
-              border: occ.isActive ? '1px solid rgba(234, 179, 8, 0.3)' : '1px solid rgba(255,255,255,0.05)',
+              background: 'rgba(239, 233, 222, 0.02)', 
+              border: occ.isActive ? '1px solid rgba(214, 164, 64, 0.3)' : '1px solid rgba(239, 233, 222, 0.05)',
               borderRadius: '8px', 
               padding: '1.5rem',
-              boxShadow: occ.isActive ? '0 0 20px rgba(234, 179, 8, 0.1)' : 'none'
+              boxShadow: 'none'
             }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '1rem' }}>
                 <div>
-                  <h4 style={{ fontSize: '1.25rem', fontWeight: 700, color: occ.isActive ? 'var(--accent-primary)' : 'var(--text-primary)', marginBottom: '0.25rem' }}>
+                  <h4 style={{ fontSize: '1.25rem', fontWeight: 500, color: occ.isActive ? 'var(--accent-primary)' : 'var(--text-primary)', marginBottom: '0.25rem' }}>
                     {occ.stoolName}
                   </h4>
                   {occ.person.name !== occ.stoolName && (
@@ -152,7 +152,7 @@ export const HistoricalLineage: React.FC<HistoricalLineageProps> = ({ titleType 
 
               {occ.person.abusua && (
                 <div style={{ marginTop: '1rem', fontSize: '0.85rem', color: 'var(--text-secondary)', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                  <span style={{ padding: '0.25rem 0.5rem', background: 'rgba(255,255,255,0.05)', borderRadius: '4px' }}>
+                  <span style={{ padding: '0.25rem 0.5rem', background: 'rgba(239, 233, 222, 0.05)', borderRadius: '4px' }}>
                     Abusua: <strong>{occ.person.abusua.name}</strong>
                   </span>
                 </div>

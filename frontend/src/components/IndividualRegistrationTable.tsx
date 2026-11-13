@@ -188,7 +188,7 @@ GPS Address: ${person.gps_address || 'N/A'}
           bottom: '2rem',
           right: '2rem',
           background: 'var(--accent-gradient)',
-          color: 'white',
+          color: 'var(--text-primary)',
           padding: '0.85rem 1.25rem',
           borderRadius: '10px',
           boxShadow: '0 10px 25px rgba(0,0,0,0.5)',
@@ -207,7 +207,7 @@ GPS Address: ${person.gps_address || 'N/A'}
       {/* Header & Controls Bar */}
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem' }}>
         <div>
-          <h2 style={{ fontSize: '1.4rem', fontFamily: 'var(--font-display)', fontWeight: 800, margin: 0 }}>
+          <h2 style={{ fontSize: '1.4rem', fontFamily: 'var(--font-display)', fontWeight: 500, margin: 0 }}>
             Individual Registration Directory
           </h2>
           <p style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', margin: '0.25rem 0 0 0' }}>
@@ -232,7 +232,7 @@ GPS Address: ${person.gps_address || 'N/A'}
             type="text"
             value={searchQuery}
             onChange={e => setSearchQuery(e.target.value)}
-            placeholder="Search by name, Ghana Card, or phone..."
+            placeholder="Search name, Ghana Card or phone"
             style={{ width: '100%', paddingLeft: '2.2rem', fontSize: '0.85rem', boxSizing: 'border-box' }}
           />
           <Search size={16} style={{ position: 'absolute', left: '0.75rem', top: '50%', transform: 'translateY(-50%)', color: 'var(--text-muted)' }} />
@@ -260,7 +260,7 @@ GPS Address: ${person.gps_address || 'N/A'}
         <div style={{ overflowX: 'auto', overflowY: 'auto', maxHeight: '100%', flex: 1 }}>
           <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '0.85rem' }}>
             <thead>
-              <tr style={{ background: 'rgba(255, 255, 255, 0.04)', borderBottom: '1px solid var(--border-color)', color: 'var(--text-muted)' }}>
+              <tr style={{ background: 'rgba(239, 233, 222, 0.04)', borderBottom: '1px solid var(--border-color)', color: 'var(--text-muted)' }}>
                 <th style={{ padding: '0.85rem 1rem' }}>ID & Name</th>
                 <th style={{ padding: '0.85rem 1rem' }}>Gender / Status</th>
                 <th style={{ padding: '0.85rem 1rem' }}>Dates & Birthplace</th>
@@ -285,7 +285,7 @@ GPS Address: ${person.gps_address || 'N/A'}
                     <tr 
                       key={p.person_id}
                       style={{
-                        borderBottom: '1px solid rgba(255, 255, 255, 0.05)',
+                        borderBottom: '1px solid rgba(239, 233, 222, 0.05)',
                         transition: 'background 0.15s',
                         cursor: onSelectPerson ? 'pointer' : 'default'
                       }}
@@ -298,19 +298,19 @@ GPS Address: ${person.gps_address || 'N/A'}
                             width: '32px',
                             height: '32px',
                             borderRadius: '50%',
-                            background: p.gender === 'Female' ? 'rgba(236, 72, 153, 0.15)' : 'rgba(59, 130, 246, 0.15)',
-                            color: p.gender === 'Female' ? '#f472b6' : '#60a5fa',
+                            background: p.gender === 'Female' ? 'rgba(201, 122, 138, 0.15)' : 'rgba(111, 143, 201, 0.15)',
+                            color: p.gender === 'Female' ? 'var(--kente-rose-ink)' : 'var(--kente-indigo-ink)',
                             display: 'flex',
                             alignItems: 'center',
                             justifyContent: 'center',
-                            fontWeight: 700,
+                            fontWeight: 500,
                             fontSize: '0.75rem',
                             flexShrink: 0
                           }}>
                             #{p.person_id}
                           </div>
                           <div>
-                            <div style={{ fontWeight: 700, color: 'var(--text-primary)' }}>
+                            <div style={{ fontWeight: 500, color: 'var(--text-primary)' }}>
                               {p.first_name} {p.last_name}
                             </div>
                             {p.maiden_name && (
@@ -335,8 +335,8 @@ GPS Address: ${person.gps_address || 'N/A'}
                             padding: '0.15rem 0.45rem',
                             borderRadius: '4px',
                             width: 'fit-content',
-                            background: p.is_living ? 'rgba(16, 185, 129, 0.15)' : 'rgba(239, 68, 68, 0.15)',
-                            color: p.is_living ? '#34d399' : '#f87171'
+                            background: p.is_living ? 'rgba(63, 158, 107, 0.15)' : 'rgba(201, 83, 63, 0.15)',
+                            color: p.is_living ? 'var(--kente-green-ink)' : 'var(--kente-clay-ink)'
                           }}>
                             {p.is_living ? <UserCheck size={12} /> : <UserX size={12} />}
                             {p.is_living ? 'Living' : 'Deceased'}
@@ -362,13 +362,13 @@ GPS Address: ${person.gps_address || 'N/A'}
                       <td style={{ padding: '0.85rem 1rem' }}>
                         <div style={{ display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
                           {clanName ? (
-                            <span className="pill pill-half" style={{ background: 'rgba(245,158,11,0.12)', color: '#fbbf24', border: '1px solid rgba(245,158,11,0.25)', fontSize: '0.72rem' }}>
+                            <span className="pill pill-half" style={{ background: 'rgba(214, 164, 64, 0.12)', color: 'var(--accent-ink)', border: '1px solid rgba(214, 164, 64, 0.25)', fontSize: '0.72rem' }}>
                               Clan: {clanName}
                             </span>
                           ) : <span style={{ color: 'var(--text-muted)', fontSize: '0.75rem' }}>No Clan</span>}
 
                           {stoolName && (
-                            <span className="pill pill-half" style={{ background: 'rgba(99,102,241,0.12)', color: '#818cf8', border: '1px solid rgba(99,102,241,0.25)', fontSize: '0.72rem' }}>
+                            <span className="pill pill-half" style={{ background: 'rgba(214, 164, 64, 0.12)', color: 'var(--accent-ink)', border: '1px solid rgba(214, 164, 64, 0.25)', fontSize: '0.72rem' }}>
                               {stoolName}
                             </span>
                           )}
@@ -412,9 +412,9 @@ GPS Address: ${person.gps_address || 'N/A'}
                               width: '32px',
                               height: '32px',
                               borderRadius: '6px',
-                              background: canEditOrDelete ? 'rgba(99, 102, 241, 0.15)' : 'rgba(255, 255, 255, 0.05)',
-                              border: canEditOrDelete ? '1px solid rgba(99, 102, 241, 0.3)' : '1px solid rgba(255, 255, 255, 0.1)',
-                              color: canEditOrDelete ? '#a5b4fc' : 'var(--text-muted)',
+                              background: canEditOrDelete ? 'rgba(214, 164, 64, 0.15)' : 'rgba(239, 233, 222, 0.05)',
+                              border: canEditOrDelete ? '1px solid rgba(214, 164, 64, 0.3)' : '1px solid rgba(239, 233, 222, 0.1)',
+                              color: canEditOrDelete ? 'var(--accent-ink)' : 'var(--text-muted)',
                               cursor: canEditOrDelete ? 'pointer' : 'not-allowed',
                               transition: 'transform 0.15s, background 0.15s'
                             }}
@@ -435,9 +435,9 @@ GPS Address: ${person.gps_address || 'N/A'}
                               width: '32px',
                               height: '32px',
                               borderRadius: '6px',
-                              background: copiedId === p.person_id ? 'rgba(16, 185, 129, 0.2)' : 'rgba(56, 189, 248, 0.15)',
-                              border: copiedId === p.person_id ? '1px solid rgba(16, 185, 129, 0.4)' : '1px solid rgba(56, 189, 248, 0.3)',
-                              color: copiedId === p.person_id ? '#34d399' : '#38bdf8',
+                              background: copiedId === p.person_id ? 'rgba(63, 158, 107, 0.2)' : 'rgba(111, 143, 201, 0.15)',
+                              border: copiedId === p.person_id ? '1px solid rgba(63, 158, 107, 0.4)' : '1px solid rgba(111, 143, 201, 0.3)',
+                              color: copiedId === p.person_id ? 'var(--kente-green-ink)' : 'var(--kente-indigo-ink)',
                               cursor: 'pointer',
                               transition: 'transform 0.15s, background 0.15s'
                             }}
@@ -456,9 +456,9 @@ GPS Address: ${person.gps_address || 'N/A'}
                               width: '32px',
                               height: '32px',
                               borderRadius: '6px',
-                              background: canEditOrDelete ? 'rgba(239, 68, 68, 0.15)' : 'rgba(255, 255, 255, 0.05)',
-                              border: canEditOrDelete ? '1px solid rgba(239, 68, 68, 0.3)' : '1px solid rgba(255, 255, 255, 0.1)',
-                              color: canEditOrDelete ? '#f87171' : 'var(--text-muted)',
+                              background: canEditOrDelete ? 'rgba(201, 83, 63, 0.15)' : 'rgba(239, 233, 222, 0.05)',
+                              border: canEditOrDelete ? '1px solid rgba(201, 83, 63, 0.3)' : '1px solid rgba(239, 233, 222, 0.1)',
+                              color: canEditOrDelete ? 'var(--kente-clay-ink)' : 'var(--text-muted)',
                               cursor: canEditOrDelete ? 'pointer' : 'not-allowed',
                               transition: 'transform 0.15s, background 0.15s'
                             }}
@@ -610,15 +610,15 @@ GPS Address: ${person.gps_address || 'N/A'}
             flexDirection: 'column',
             alignItems: 'center',
             gap: '1.25rem',
-            border: '1px solid rgba(239, 68, 68, 0.3)',
-            boxShadow: '0 0 30px rgba(239, 68, 68, 0.2)'
+            border: '1px solid rgba(201, 83, 63, 0.3)',
+            boxShadow: 'none'
           }}>
             <div style={{
               width: '56px',
               height: '56px',
               borderRadius: '50%',
-              background: 'rgba(239, 68, 68, 0.15)',
-              color: '#f87171',
+              background: 'rgba(201, 83, 63, 0.15)',
+              color: 'var(--kente-clay-ink)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center'
@@ -627,7 +627,7 @@ GPS Address: ${person.gps_address || 'N/A'}
             </div>
 
             <div>
-              <h3 style={{ fontSize: '1.25rem', fontFamily: 'var(--font-display)', fontWeight: 800, margin: '0 0 0.5rem 0' }}>
+              <h3 style={{ fontSize: '1.25rem', fontFamily: 'var(--font-sans)', fontWeight: 500, margin: '0 0 0.5rem 0' }}>
                 Confirm Record Deletion
               </h3>
               <p style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', lineHeight: 1.5, margin: 0 }}>
@@ -640,9 +640,9 @@ GPS Address: ${person.gps_address || 'N/A'}
 
             {actionError && (
               <div style={{
-                background: 'rgba(239, 68, 68, 0.1)',
-                border: '1px solid rgba(239, 68, 68, 0.25)',
-                color: '#f87171',
+                background: 'rgba(201, 83, 63, 0.1)',
+                border: '1px solid rgba(201, 83, 63, 0.25)',
+                color: 'var(--kente-clay-ink)',
                 padding: '0.5rem 0.75rem',
                 borderRadius: '6px',
                 fontSize: '0.8rem',
@@ -663,8 +663,8 @@ GPS Address: ${person.gps_address || 'N/A'}
                   flex: 1,
                   padding: '0.65rem',
                   borderRadius: '6px',
-                  background: 'rgba(255, 255, 255, 0.05)',
-                  border: '1px solid rgba(255, 255, 255, 0.1)',
+                  background: 'rgba(239, 233, 222, 0.05)',
+                  border: '1px solid rgba(239, 233, 222, 0.1)',
                   color: 'var(--text-secondary)',
                   cursor: 'pointer',
                   fontSize: '0.85rem',
@@ -682,18 +682,18 @@ GPS Address: ${person.gps_address || 'N/A'}
                   flex: 1,
                   padding: '0.65rem',
                   borderRadius: '6px',
-                  background: 'linear-gradient(135deg, #ef4444 0%, #dc2626 100%)',
+                  background: 'var(--kente-clay)',
                   border: 'none',
-                  color: 'white',
+                  color: 'var(--text-primary)',
                   cursor: 'pointer',
                   fontSize: '0.85rem',
                   fontWeight: 600,
-                  boxShadow: '0 4px 12px rgba(239, 68, 68, 0.3)',
+                  boxShadow: 'none',
                   opacity: isSubmittingDelete ? 0.6 : 1
                 }}
                 disabled={isSubmittingDelete}
               >
-                {isSubmittingDelete ? 'Deleting...' : 'Delete Record'}
+                {isSubmittingDelete ? 'Deleting…' : 'Delete record'}
               </button>
             </div>
           </div>

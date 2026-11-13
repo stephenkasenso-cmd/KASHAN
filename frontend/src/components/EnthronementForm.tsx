@@ -151,7 +151,7 @@ export const EnthronementForm: React.FC<EnthronementFormProps> = ({ onSuccess, o
         <X size={24} />
       </button>
 
-      <h3 style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '1.5rem', fontFamily: 'var(--font-display)', fontWeight: 700, marginBottom: '1.5rem' }}>
+      <h3 style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '1.5rem', fontFamily: 'var(--font-sans)', fontWeight: 500, marginBottom: '1.5rem' }}>
         <Crown size={24} style={{ color: 'var(--accent-primary)' }} />
         Enthrone Traditional Leader
       </h3>
@@ -160,11 +160,11 @@ export const EnthronementForm: React.FC<EnthronementFormProps> = ({ onSuccess, o
         <div className="form-row" style={{ display: 'flex', gap: '1rem', marginBottom: '1rem' }}>
           <div className="form-group" style={{ flex: 1 }}>
             <label style={{ display: 'block', marginBottom: '0.5rem', fontSize: '0.85rem', color: 'var(--text-secondary)' }}>Biological Name *</label>
-            <input type="text" value={name} onChange={e => setName(e.target.value)} required style={{ width: '100%', padding: '0.75rem', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.1)', background: 'rgba(0,0,0,0.2)', color: 'white' }} />
+            <input type="text" value={name} onChange={e => setName(e.target.value)} required style={{ width: '100%', padding: '0.75rem', borderRadius: '8px', border: '1px solid rgba(239, 233, 222, 0.1)', background: 'rgba(0,0,0,0.2)', color: 'var(--text-primary)' }} />
           </div>
           <div className="form-group" style={{ flex: 1 }}>
             <label style={{ display: 'block', marginBottom: '0.5rem', fontSize: '0.85rem', color: 'var(--text-secondary)' }}>Stool Name (Title) *</label>
-            <input type="text" value={stoolName} onChange={e => setStoolName(e.target.value)} required style={{ width: '100%', padding: '0.75rem', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.1)', background: 'rgba(0,0,0,0.2)', color: 'white' }} />
+            <input type="text" value={stoolName} onChange={e => setStoolName(e.target.value)} required style={{ width: '100%', padding: '0.75rem', borderRadius: '8px', border: '1px solid rgba(239, 233, 222, 0.1)', background: 'rgba(0,0,0,0.2)', color: 'var(--text-primary)' }} />
           </div>
         </div>
 
@@ -182,7 +182,7 @@ export const EnthronementForm: React.FC<EnthronementFormProps> = ({ onSuccess, o
           </div>
           <div className="form-group" style={{ flex: 1 }}>
             <label style={{ display: 'block', marginBottom: '0.5rem', fontSize: '0.85rem', color: 'var(--text-secondary)' }}>Abusua (Matrilineal Clan) *</label>
-            <select value={abusuaId} onChange={e => setAbusuaId(e.target.value)} required style={{ width: '100%', padding: '0.75rem', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.1)', background: 'rgba(0,0,0,0.2)', color: 'white' }}>
+            <select value={abusuaId} onChange={e => setAbusuaId(e.target.value)} required style={{ width: '100%', padding: '0.75rem', borderRadius: '8px', border: '1px solid rgba(239, 233, 222, 0.1)', background: 'rgba(0,0,0,0.2)', color: 'var(--text-primary)' }}>
               <option value="">-- Select Abusua --</option>
               {abusuas.map(a => <option key={a.id} value={a.id}>{a.name}</option>)}
             </select>
@@ -192,14 +192,14 @@ export const EnthronementForm: React.FC<EnthronementFormProps> = ({ onSuccess, o
         <div className="form-row" style={{ display: 'flex', gap: '1rem', marginBottom: '1rem' }}>
           <div className="form-group" style={{ flex: 1 }}>
             <label style={{ display: 'block', marginBottom: '0.5rem', fontSize: '0.85rem', color: 'var(--text-secondary)' }}>Paramountcy *</label>
-            <select value={selectedParamountcyId} onChange={e => { setSelectedParamountcyId(e.target.value); setSelectedSubDivisionId(''); }} required style={{ width: '100%', padding: '0.75rem', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.1)', background: 'rgba(0,0,0,0.2)', color: 'white' }}>
+            <select value={selectedParamountcyId} onChange={e => { setSelectedParamountcyId(e.target.value); setSelectedSubDivisionId(''); }} required style={{ width: '100%', padding: '0.75rem', borderRadius: '8px', border: '1px solid rgba(239, 233, 222, 0.1)', background: 'rgba(0,0,0,0.2)', color: 'var(--text-primary)' }}>
               <option value="">-- Select Paramountcy --</option>
               {paramountcies.map(p => <option key={p.id} value={p.id}>{p.name}</option>)}
             </select>
           </div>
           <div className="form-group" style={{ flex: 1 }}>
             <label style={{ display: 'block', marginBottom: '0.5rem', fontSize: '0.85rem', color: 'var(--text-secondary)' }}>Sub-division (Optional)</label>
-            <select value={selectedSubDivisionId} onChange={e => setSelectedSubDivisionId(e.target.value)} disabled={!selectedParamountcyId} style={{ width: '100%', padding: '0.75rem', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.1)', background: 'rgba(0,0,0,0.2)', color: 'white', opacity: !selectedParamountcyId ? 0.5 : 1 }}>
+            <select value={selectedSubDivisionId} onChange={e => setSelectedSubDivisionId(e.target.value)} disabled={!selectedParamountcyId} style={{ width: '100%', padding: '0.75rem', borderRadius: '8px', border: '1px solid rgba(239, 233, 222, 0.1)', background: 'rgba(0,0,0,0.2)', color: 'var(--text-primary)', opacity: !selectedParamountcyId ? 0.5 : 1 }}>
               <option value="">-- Apex / None --</option>
               {subdivisions.map(s => <option key={s.id} value={s.id}>{s.name}</option>)}
             </select>
@@ -209,19 +209,19 @@ export const EnthronementForm: React.FC<EnthronementFormProps> = ({ onSuccess, o
         <div className="form-row" style={{ display: 'flex', gap: '1rem', marginBottom: '1.5rem' }}>
           <div className="form-group" style={{ flex: 1 }}>
             <label style={{ display: 'block', marginBottom: '0.5rem', fontSize: '0.85rem', color: 'var(--text-secondary)' }}>Start Date (Enstoolment) *</label>
-            <input type="date" value={startDate} onChange={e => setStartDate(e.target.value)} required style={{ width: '100%', padding: '0.75rem', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.1)', background: 'rgba(0,0,0,0.2)', color: 'white' }} />
+            <input type="date" value={startDate} onChange={e => setStartDate(e.target.value)} required style={{ width: '100%', padding: '0.75rem', borderRadius: '8px', border: '1px solid rgba(239, 233, 222, 0.1)', background: 'rgba(0,0,0,0.2)', color: 'var(--text-primary)' }} />
           </div>
         </div>
 
         {error && (
-          <div style={{ padding: '1rem', background: 'rgba(255, 0, 0, 0.1)', border: '1px solid rgba(255,0,0,0.3)', color: '#ff6b6b', borderRadius: '8px', marginBottom: '1rem' }}>
+          <div style={{ padding: '1rem', background: 'rgba(201, 83, 63, 0.1)', border: '1px solid rgba(201, 83, 63, 0.3)', color: 'var(--kente-clay-ink)', borderRadius: '8px', marginBottom: '1rem' }}>
             {error}
           </div>
         )}
 
-        <button type="submit" disabled={submitting} style={{ width: '100%', padding: '1rem', background: 'var(--accent-primary)', color: '#000', border: 'none', borderRadius: '8px', fontWeight: 600, fontSize: '1rem', cursor: submitting ? 'not-allowed' : 'pointer', display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '0.5rem' }}>
+        <button type="submit" disabled={submitting} style={{ width: '100%', padding: '1rem', background: 'var(--accent-primary)', color: 'var(--accent-on)', border: 'none', borderRadius: '8px', fontWeight: 600, fontSize: '1rem', cursor: submitting ? 'not-allowed' : 'pointer', display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '0.5rem' }}>
           <Save size={18} />
-          {submitting ? 'Enthroning...' : 'Register Leader'}
+          {submitting ? 'Registering…' : 'Register leader'}
         </button>
       </form>
     </div>

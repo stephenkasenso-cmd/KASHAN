@@ -353,7 +353,7 @@ export const StoolsDashboard: React.FC<StoolsDashboardProps> = ({ currentUser })
   };
 
   if (loading) {
-    return <div style={{ padding: '6rem 2rem 2rem 2rem', color: 'var(--text-secondary)' }}>Loading Universal Traditional Councils...</div>;
+    return <div style={{ padding: '6rem 2rem 2rem 2rem', color: 'var(--text-secondary)' }}>Loading stools…</div>;
   }
 
   // Find partner candidates (for dropdown selects)
@@ -365,7 +365,7 @@ export const StoolsDashboard: React.FC<StoolsDashboardProps> = ({ currentUser })
       {/* Dashboard Header */}
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem', flexWrap: 'wrap', gap: '1rem' }}>
         <div>
-          <h2 style={{ fontSize: '2.2rem', fontWeight: 800, fontFamily: 'var(--font-display)', display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+          <h2 style={{ fontSize: '2.2rem', fontWeight: 500, fontFamily: 'var(--font-display)', display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
             <Crown style={{ color: 'var(--accent-primary)' }} />
             Traditional Leadership & Councils
           </h2>
@@ -391,7 +391,7 @@ export const StoolsDashboard: React.FC<StoolsDashboardProps> = ({ currentUser })
           onClick={() => setActiveTab('chiefs')}
           className={`tab-btn ${activeTab === 'chiefs' ? 'active' : ''}`}
           style={{
-            background: activeTab === 'chiefs' ? 'rgba(255, 255, 255, 0.08)' : 'transparent',
+            background: activeTab === 'chiefs' ? 'rgba(239, 233, 222, 0.08)' : 'transparent',
             border: 'none',
             color: activeTab === 'chiefs' ? 'var(--text-primary)' : 'var(--text-secondary)',
             padding: '0.75rem 1.5rem',
@@ -402,7 +402,7 @@ export const StoolsDashboard: React.FC<StoolsDashboardProps> = ({ currentUser })
             display: 'flex',
             alignItems: 'center',
             gap: '0.5rem',
-            transition: 'all 0.2s'
+            transition: 'background-color 140ms var(--ease), border-color 140ms var(--ease), color 140ms var(--ease), opacity 140ms var(--ease)'
           }}
         >
           <Crown size={18} /> Chiefs & Paramount Rulers
@@ -411,7 +411,7 @@ export const StoolsDashboard: React.FC<StoolsDashboardProps> = ({ currentUser })
           onClick={() => setActiveTab('queenMothers')}
           className={`tab-btn ${activeTab === 'queenMothers' ? 'active' : ''}`}
           style={{
-            background: activeTab === 'queenMothers' ? 'rgba(255, 255, 255, 0.08)' : 'transparent',
+            background: activeTab === 'queenMothers' ? 'rgba(239, 233, 222, 0.08)' : 'transparent',
             border: 'none',
             color: activeTab === 'queenMothers' ? 'var(--text-primary)' : 'var(--text-secondary)',
             padding: '0.75rem 1.5rem',
@@ -422,7 +422,7 @@ export const StoolsDashboard: React.FC<StoolsDashboardProps> = ({ currentUser })
             display: 'flex',
             alignItems: 'center',
             gap: '0.5rem',
-            transition: 'all 0.2s'
+            transition: 'background-color 140ms var(--ease), border-color 140ms var(--ease), color 140ms var(--ease), opacity 140ms var(--ease)'
           }}
         >
           <Shield size={18} /> Queen Mothers & Matriarchs
@@ -431,7 +431,7 @@ export const StoolsDashboard: React.FC<StoolsDashboardProps> = ({ currentUser })
           onClick={() => setActiveTab('lineage')}
           className={`tab-btn ${activeTab === 'lineage' ? 'active' : ''}`}
           style={{
-            background: activeTab === 'lineage' ? 'rgba(255, 255, 255, 0.08)' : 'transparent',
+            background: activeTab === 'lineage' ? 'rgba(239, 233, 222, 0.08)' : 'transparent',
             border: 'none',
             color: activeTab === 'lineage' ? 'var(--text-primary)' : 'var(--text-secondary)',
             padding: '0.75rem 1.5rem',
@@ -442,7 +442,7 @@ export const StoolsDashboard: React.FC<StoolsDashboardProps> = ({ currentUser })
             display: 'flex',
             alignItems: 'center',
             gap: '0.5rem',
-            transition: 'all 0.2s'
+            transition: 'background-color 140ms var(--ease), border-color 140ms var(--ease), color 140ms var(--ease), opacity 140ms var(--ease)'
           }}
         >
           <History size={18} /> Historical Lineage
@@ -462,7 +462,7 @@ export const StoolsDashboard: React.FC<StoolsDashboardProps> = ({ currentUser })
           <Search size={18} />
           <input
             type="text"
-            placeholder="Search by Clan..."
+            placeholder="Clan"
             value={filterClan}
             onChange={(e) => setFilterClan(e.target.value)}
           />
@@ -471,7 +471,7 @@ export const StoolsDashboard: React.FC<StoolsDashboardProps> = ({ currentUser })
           <MapPin size={18} />
           <input
             type="text"
-            placeholder="Search by Town/Location..."
+            placeholder="Town or seat"
             value={filterSeat}
             onChange={(e) => setFilterSeat(e.target.value)}
           />
@@ -480,7 +480,7 @@ export const StoolsDashboard: React.FC<StoolsDashboardProps> = ({ currentUser })
           <select 
             value={filterRegion} 
             onChange={(e) => setFilterRegion(e.target.value)}
-            style={{ width: '100%', height: '100%', background: 'rgba(255,255,255,0.03)', border: '1px solid var(--border-color)', borderRadius: '8px', color: 'var(--text-primary)', padding: '0.5rem' }}
+            style={{ width: '100%', height: '100%', background: 'rgba(239, 233, 222, 0.03)', border: '1px solid var(--border-color)', borderRadius: '8px', color: 'var(--text-primary)', padding: '0.5rem' }}
           >
             <option value="">All Regions</option>
             {REGIONS.map(r => <option key={r} value={r}>{r}</option>)}
@@ -490,7 +490,7 @@ export const StoolsDashboard: React.FC<StoolsDashboardProps> = ({ currentUser })
           <select 
             value={filterCategory} 
             onChange={(e) => setFilterCategory(e.target.value)}
-            style={{ width: '100%', height: '100%', background: 'rgba(255,255,255,0.03)', border: '1px solid var(--border-color)', borderRadius: '8px', color: 'var(--text-primary)', padding: '0.5rem' }}
+            style={{ width: '100%', height: '100%', background: 'rgba(239, 233, 222, 0.03)', border: '1px solid var(--border-color)', borderRadius: '8px', color: 'var(--text-primary)', padding: '0.5rem' }}
           >
             <option value="">All Categories</option>
             {CATEGORIES.map(c => <option key={c.value} value={c.value}>{c.label}</option>)}
@@ -501,14 +501,14 @@ export const StoolsDashboard: React.FC<StoolsDashboardProps> = ({ currentUser })
       {/* Hero context for Queen Mothers role (Mandatory knowledge integration) */}
       {activeTab === 'queenMothers' && (
         <div className="glass-card" style={{
-          background: 'linear-gradient(135deg, rgba(236, 72, 153, 0.12) 0%, rgba(168, 85, 247, 0.08) 100%)',
-          border: '1px solid rgba(236, 72, 153, 0.3)',
+          background: 'rgba(201, 122, 138, 0.06)',
+          border: '1px solid rgba(201, 122, 138, 0.3)',
           padding: '2rem',
           marginBottom: '2.5rem'
         }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1rem', color: '#f472b6' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1rem', color: 'var(--kente-rose-ink)' }}>
             <Crown size={24} />
-            <h3 style={{ fontSize: '1.5rem', fontFamily: 'var(--font-display)', fontWeight: 800, margin: 0, color: '#fbcfe8' }}>
+            <h3 style={{ fontSize: '1.5rem', fontFamily: 'var(--font-sans)', fontWeight: 500, margin: 0, color: 'var(--kente-rose-ink)' }}>
               Customary Authority & Matriarchal Governance of Queen Mothers (Ahemaa)
             </h3>
           </div>
@@ -516,20 +516,20 @@ export const StoolsDashboard: React.FC<StoolsDashboardProps> = ({ currentUser })
             Ahemaa (Queen Mothers) are direct custodians of matrilineal lineage (*Abusua*) and traditional rulers. They exercise critical constitutional responsibilities including:
           </p>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.25rem' }}>
-            <div className="glass-card" style={{ background: 'rgba(0,0,0,0.25)', border: '1px solid rgba(236, 72, 153, 0.2)' }}>
-              <h4 style={{ color: '#f472b6', marginBottom: '0.5rem', fontSize: '1.05rem', fontWeight: 700 }}>1. Stool Nomination</h4>
+            <div className="glass-card" style={{ background: 'rgba(0,0,0,0.25)', border: '1px solid rgba(201, 122, 138, 0.2)' }}>
+              <h4 style={{ color: 'var(--kente-rose-ink)', marginBottom: '0.5rem', fontSize: '1.05rem', fontWeight: 500 }}>1. Stool Nomination</h4>
               <p style={{ color: 'var(--text-secondary)', fontSize: '0.85rem', lineHeight: 1.5, margin: 0 }}>
                 Holding the exclusive customary right to nominate and present the successor for a vacant chief stool to the traditional council.
               </p>
             </div>
-            <div className="glass-card" style={{ background: 'rgba(0,0,0,0.25)', border: '1px solid rgba(168, 85, 247, 0.2)' }}>
-              <h4 style={{ color: '#c084fc', marginBottom: '0.5rem', fontSize: '1.05rem', fontWeight: 700 }}>2. Customary Judicial Power</h4>
+            <div className="glass-card" style={{ background: 'rgba(0,0,0,0.25)', border: '1px solid rgba(201, 122, 138, 0.2)' }}>
+              <h4 style={{ color: 'var(--kente-rose-ink)', marginBottom: '0.5rem', fontSize: '1.05rem', fontWeight: 500 }}>2. Customary Judicial Power</h4>
               <p style={{ color: 'var(--text-secondary)', fontSize: '0.85rem', lineHeight: 1.5, margin: 0 }}>
                 Presiding over local traditional courts, resolving domestic, marital, ethical, and inheritance conflicts according to customary law.
               </p>
             </div>
-            <div className="glass-card" style={{ background: 'rgba(0,0,0,0.25)', border: '1px solid rgba(59, 130, 246, 0.2)' }}>
-              <h4 style={{ color: '#60a5fa', marginBottom: '0.5rem', fontSize: '1.05rem', fontWeight: 700 }}>3. Guardians of Lineage</h4>
+            <div className="glass-card" style={{ background: 'rgba(0,0,0,0.25)', border: '1px solid rgba(111, 143, 201, 0.2)' }}>
+              <h4 style={{ color: 'var(--kente-indigo-ink)', marginBottom: '0.5rem', fontSize: '1.05rem', fontWeight: 500 }}>3. Guardians of Lineage</h4>
               <p style={{ color: 'var(--text-secondary)', fontSize: '0.85rem', lineHeight: 1.5, margin: 0 }}>
                 Serving as official genealogists, safeguarding royal family registries, and authenticating lineages (*Abusua*) to ensure legitimate successions.
               </p>
@@ -548,10 +548,10 @@ export const StoolsDashboard: React.FC<StoolsDashboardProps> = ({ currentUser })
             {/* Category Header */}
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1.5rem', borderBottom: '1px solid var(--border-color)', paddingBottom: '0.5rem' }}>
               <Layers size={20} style={{ color: 'var(--accent-primary)' }} />
-              <h3 style={{ fontSize: '1.4rem', fontFamily: 'var(--font-display)', fontWeight: 700, margin: 0 }}>
+              <h3 style={{ fontSize: '1.4rem', fontFamily: 'var(--font-sans)', fontWeight: 500, margin: 0 }}>
                 {cat.label}
               </h3>
-              <span style={{ background: 'rgba(255,255,255,0.1)', padding: '0.25rem 0.75rem', borderRadius: '1rem', fontSize: '0.85rem' }}>
+              <span style={{ background: 'rgba(239, 233, 222, 0.1)', padding: '0.25rem 0.75rem', borderRadius: '1rem', fontSize: '0.85rem' }}>
                 {catStools.length}
               </span>
             </div>
@@ -571,7 +571,7 @@ export const StoolsDashboard: React.FC<StoolsDashboardProps> = ({ currentUser })
                       flexDirection: 'column', 
                       gap: '1rem', 
                       minHeight: '220px', 
-                      borderLeft: `4px solid ${activeTab === 'chiefs' ? 'var(--accent-primary)' : '#ec4899'}`,
+                      borderLeft: `4px solid ${activeTab === 'chiefs' ? 'var(--accent-primary)' : 'var(--kente-rose-ink)'}`,
                       position: 'relative'
                     }}
                   >
@@ -581,16 +581,16 @@ export const StoolsDashboard: React.FC<StoolsDashboardProps> = ({ currentUser })
                           <img src={stool.imageUrl} alt={stool.stoolName} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                         </div>
                       ) : (
-                        <div style={{ width: '60px', height: '60px', borderRadius: '8px', background: 'rgba(255,255,255,0.05)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-                          {activeTab === 'chiefs' ? <Crown size={24} style={{ color: 'var(--accent-primary)' }} /> : <Shield size={24} style={{ color: '#f472b6' }} />}
+                        <div style={{ width: '60px', height: '60px', borderRadius: '8px', background: 'rgba(239, 233, 222, 0.05)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                          {activeTab === 'chiefs' ? <Crown size={24} style={{ color: 'var(--accent-primary)' }} /> : <Shield size={24} style={{ color: 'var(--kente-rose-ink)' }} />}
                         </div>
                       )}
                       
                       <div style={{ flex: 1 }}>
-                        <div style={{ fontSize: '1.1rem', fontWeight: 800, fontFamily: 'var(--font-display)', color: 'var(--text-primary)' }}>
+                        <div style={{ fontSize: '1.1rem', fontWeight: 500, fontFamily: 'var(--font-sans)', color: 'var(--text-primary)' }}>
                           {stool.title}
                         </div>
-                        <div style={{ color: activeTab === 'chiefs' ? 'var(--accent-primary)' : '#f472b6', fontSize: '0.9rem', fontWeight: 600, marginTop: '0.15rem' }}>
+                        <div style={{ color: activeTab === 'chiefs' ? 'var(--accent-primary)' : 'var(--kente-rose-ink)', fontSize: '0.9rem', fontWeight: 600, marginTop: '0.15rem' }}>
                           {stool.currentOccupant || 'Vacant / Unoccupied'}
                         </div>
                         <div style={{ fontSize: '0.75rem', color: 'var(--text-secondary)', marginTop: '0.25rem' }}>
@@ -601,14 +601,14 @@ export const StoolsDashboard: React.FC<StoolsDashboardProps> = ({ currentUser })
 
                     {/* Hierarchy Breadcrumbs / Path */}
                     {parentName && (
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '0.35rem', fontSize: '0.75rem', color: 'var(--text-secondary)', background: 'rgba(255,255,255,0.03)', padding: '0.25rem 0.5rem', borderRadius: '4px' }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '0.35rem', fontSize: '0.75rem', color: 'var(--text-secondary)', background: 'rgba(239, 233, 222, 0.03)', padding: '0.25rem 0.5rem', borderRadius: '4px' }}>
                         <span style={{ fontWeight: 600 }}>Under:</span>
                         <span>{parentName}</span>
                       </div>
                     )}
 
                     {/* Details list */}
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem', fontSize: '0.85rem', color: 'var(--text-secondary)', marginTop: 'auto', borderTop: '1px solid rgba(255,255,255,0.05)', paddingTop: '0.75rem' }}>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem', fontSize: '0.85rem', color: 'var(--text-secondary)', marginTop: 'auto', borderTop: '1px solid rgba(239, 233, 222, 0.05)', paddingTop: '0.75rem' }}>
                       <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                         <span>Stool:</span>
                         <span style={{ color: 'var(--text-primary)', fontWeight: 500 }}>{stool.stoolName}</span>
@@ -622,7 +622,7 @@ export const StoolsDashboard: React.FC<StoolsDashboardProps> = ({ currentUser })
                       {partnerStool && (
                         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                           <span>Counterpart:</span>
-                          <span style={{ color: activeTab === 'chiefs' ? '#f472b6' : 'var(--accent-primary)', fontWeight: 500 }}>
+                          <span style={{ color: activeTab === 'chiefs' ? 'var(--kente-rose-ink)' : 'var(--accent-primary)', fontWeight: 500 }}>
                             {partnerStool.title} ({partnerStool.currentOccupant || 'Vacant'})
                           </span>
                         </div>
@@ -634,7 +634,7 @@ export const StoolsDashboard: React.FC<StoolsDashboardProps> = ({ currentUser })
                         </div>
                       )}
                       {stool.notes && (
-                        <div style={{ color: '#facc15', fontSize: '0.75rem', marginTop: '0.25rem', lineHeight: 1.4 }}>
+                        <div style={{ color: 'var(--accent-ink)', fontSize: '0.75rem', marginTop: '0.25rem', lineHeight: 1.4 }}>
                           • {stool.notes}
                         </div>
                       )}
@@ -654,7 +654,7 @@ export const StoolsDashboard: React.FC<StoolsDashboardProps> = ({ currentUser })
                           <button 
                             className="btn-outline" 
                             onClick={() => handleDeleteStool(stool.id)}
-                            style={{ borderColor: 'rgba(239, 68, 68, 0.4)', color: '#ef4444', padding: '0.4rem 0.6rem' }}
+                            style={{ borderColor: 'rgba(201, 83, 63, 0.4)', color: 'var(--kente-clay-ink)', padding: '0.4rem 0.6rem' }}
                           >
                             <Trash2 size={14} />
                           </button>
@@ -700,7 +700,7 @@ export const StoolsDashboard: React.FC<StoolsDashboardProps> = ({ currentUser })
               <X size={24} />
             </button>
 
-            <h3 style={{ fontSize: '1.5rem', fontFamily: 'var(--font-display)', fontWeight: 700, marginBottom: '1.5rem' }}>
+            <h3 style={{ fontSize: '1.5rem', fontFamily: 'var(--font-sans)', fontWeight: 500, marginBottom: '1.5rem' }}>
               {editingStoolId ? 'Edit Traditional Stool' : 'Add Traditional Stool'}
             </h3>
 
@@ -847,14 +847,14 @@ export const StoolsDashboard: React.FC<StoolsDashboardProps> = ({ currentUser })
               <div className="form-group">
                 <label>Stool Photo</label>
                 <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
-                  <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', background: 'rgba(255, 255, 255, 0.05)', border: '1px dashed rgba(255, 255, 255, 0.2)', borderRadius: '8px', padding: '0.5rem 1rem', cursor: 'pointer', fontSize: '0.85rem' }}>
+                  <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', background: 'rgba(239, 233, 222, 0.05)', border: '1px dashed rgba(239, 233, 222, 0.2)', borderRadius: '8px', padding: '0.5rem 1rem', cursor: 'pointer', fontSize: '0.85rem' }}>
                     <Upload size={16} /> Choose File
                     <input type="file" accept="image/*" onChange={handleImageChange} style={{ display: 'none' }} />
                   </label>
                   {imageUrl && (
                     <div style={{ position: 'relative', width: '40px', height: '40px', borderRadius: '4px', overflow: 'hidden' }}>
                       <img src={imageUrl} alt="preview" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-                      <button type="button" onClick={() => setImageUrl(null)} style={{ position: 'absolute', top: 0, right: 0, background: 'rgba(0,0,0,0.6)', border: 'none', color: 'white', width: '14px', height: '14px' }}><X size={10} /></button>
+                      <button type="button" onClick={() => setImageUrl(null)} style={{ position: 'absolute', top: 0, right: 0, background: 'rgba(0,0,0,0.6)', border: 'none', color: 'var(--text-primary)', width: '14px', height: '14px' }}><X size={10} /></button>
                     </div>
                   )}
                 </div>
@@ -868,7 +868,7 @@ export const StoolsDashboard: React.FC<StoolsDashboardProps> = ({ currentUser })
                 style={{ width: '100%', marginTop: '1rem' }} 
                 disabled={submitting || uploadingImage}
               >
-                {submitting ? 'Saving...' : editingStoolId ? 'Update Traditional Stool' : 'Create Traditional Stool'}
+                {submitting ? 'Saving…' : editingStoolId ? 'Save stool' : 'Create stool'}
               </button>
             </form>
           </div>

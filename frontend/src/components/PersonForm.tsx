@@ -170,10 +170,10 @@ export const PersonForm: React.FC<PersonFormProps> = ({ onPersonCreated, userRol
     borderRadius: '6px',
     cursor: 'pointer',
     border: 'none',
-    background: activeSection === key ? 'var(--primary)' : 'rgba(255,255,255,0.08)',
-    color: activeSection === key ? '#fff' : 'var(--text-secondary)',
+    background: activeSection === key ? 'var(--accent-gradient)' : 'rgba(239, 233, 222, 0.08)',
+    color: activeSection === key ? 'var(--text-primary)' : 'var(--text-secondary)',
     fontWeight: activeSection === key ? 600 : 400,
-    transition: 'all 0.2s ease'
+    transition: 'background-color 140ms var(--ease), border-color 140ms var(--ease), color 140ms var(--ease), opacity 140ms var(--ease)'
   });
 
   return (
@@ -430,7 +430,7 @@ export const PersonForm: React.FC<PersonFormProps> = ({ onPersonCreated, userRol
         {success && (
           <div className="alert alert-success" style={{ marginTop: '1rem' }}>
             <AlertCircle size={16} style={{ flexShrink: 0 }} />
-            <span>{existingPerson ? 'Person updated successfully!' : 'Person registered successfully!'}</span>
+            <span>{existingPerson ? 'Person updated' : 'Person registered'}</span>
           </div>
         )}
       </form>

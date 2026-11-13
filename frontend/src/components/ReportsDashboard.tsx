@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ShieldAlert, Award, Calendar, MapPin, AlertCircle, CheckCircle } from 'lucide-react';
+import { ShieldAlert, Award, Calendar, MapPin, AlertCircle, CheckCircle, Check } from 'lucide-react';
 
 interface Person {
   person_id: number;
@@ -106,16 +106,16 @@ export const ReportsDashboard: React.FC<ReportsDashboardProps> = ({
       case 'Birth':
       case 'Parent_Birth':
       case 'Child_Birth':
-        return <CheckCircle size={14} color="#10b981" />;
+        return <CheckCircle size={14} color="var(--kente-green-ink)" />;
       case 'Death':
       case 'Parent_Death':
       case 'Child_Death':
-        return <AlertCircle size={14} color="#ef4444" />;
+        return <AlertCircle size={14} color="var(--kente-clay-ink)" />;
       case 'Marriage':
       case 'Partnership':
-        return <Calendar size={14} color="#a855f7" />;
+        return <Calendar size={14} color="var(--kente-rose-ink)" />;
       default:
-        return <Calendar size={14} color="#6b7280" />;
+        return <Calendar size={14} color="var(--text-muted)" />;
     }
   };
 
@@ -128,8 +128,8 @@ export const ReportsDashboard: React.FC<ReportsDashboardProps> = ({
           className={`btn-tab ${subTab === 'lineage' ? 'active' : ''}`}
           onClick={() => setSubTab('lineage')}
           style={{
-            background: subTab === 'lineage' ? 'var(--accent-gradient)' : 'rgba(255, 255, 255, 0.03)',
-            color: 'white',
+            background: subTab === 'lineage' ? 'var(--accent-gradient)' : 'rgba(239, 233, 222, 0.03)',
+            color: 'var(--text-primary)',
             padding: '0.4rem 1rem',
             borderRadius: '6px',
             fontSize: '0.8rem'
@@ -141,8 +141,8 @@ export const ReportsDashboard: React.FC<ReportsDashboardProps> = ({
           className={`btn-tab ${subTab === 'integrity' ? 'active' : ''}`}
           onClick={() => setSubTab('integrity')}
           style={{
-            background: subTab === 'integrity' ? 'var(--accent-gradient)' : 'rgba(255, 255, 255, 0.03)',
-            color: 'white',
+            background: subTab === 'integrity' ? 'var(--accent-gradient)' : 'rgba(239, 233, 222, 0.03)',
+            color: 'var(--text-primary)',
             padding: '0.4rem 1rem',
             borderRadius: '6px',
             fontSize: '0.8rem'
@@ -154,8 +154,8 @@ export const ReportsDashboard: React.FC<ReportsDashboardProps> = ({
           className={`btn-tab ${subTab === 'biography' ? 'active' : ''}`}
           onClick={() => setSubTab('biography')}
           style={{
-            background: subTab === 'biography' ? 'var(--accent-gradient)' : 'rgba(255, 255, 255, 0.03)',
-            color: 'white',
+            background: subTab === 'biography' ? 'var(--accent-gradient)' : 'rgba(239, 233, 222, 0.03)',
+            color: 'var(--text-primary)',
             padding: '0.4rem 1rem',
             borderRadius: '6px',
             fontSize: '0.8rem'
@@ -183,22 +183,22 @@ export const ReportsDashboard: React.FC<ReportsDashboardProps> = ({
                 <div className="glass-card" style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', alignItems: 'center', textAlign: 'center' }}>
                   <Award size={24} style={{ color: 'var(--accent-primary)' }} />
                   <span style={{ fontSize: '0.75rem', color: 'var(--text-secondary)', uppercase: true } as any}>Total Ancestors</span>
-                  <span style={{ fontSize: '1.8rem', fontWeight: 800, fontFamily: 'var(--font-display)' }}>{lineage.total_ancestors}</span>
+                  <span style={{ fontSize: '1.8rem', fontWeight: 500, fontFamily: 'var(--font-sans)' }}>{lineage.total_ancestors}</span>
                 </div>
                 <div className="glass-card" style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', alignItems: 'center', textAlign: 'center' }}>
                   <Award size={24} style={{ color: 'var(--accent-secondary)' }} />
                   <span style={{ fontSize: '0.75rem', color: 'var(--text-secondary)', uppercase: true } as any}>Total Descendants</span>
-                  <span style={{ fontSize: '1.8rem', fontWeight: 800, fontFamily: 'var(--font-display)' }}>{lineage.total_descendants}</span>
+                  <span style={{ fontSize: '1.8rem', fontWeight: 500, fontFamily: 'var(--font-sans)' }}>{lineage.total_descendants}</span>
                 </div>
                 <div className="glass-card" style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', alignItems: 'center', textAlign: 'center' }}>
                   <ShieldAlert size={24} style={{ color: 'var(--info)' }} />
                   <span style={{ fontSize: '0.75rem', color: 'var(--text-secondary)', uppercase: true } as any}>Max Ancestor Depth</span>
-                  <span style={{ fontSize: '1.8rem', fontWeight: 800, fontFamily: 'var(--font-display)' }}>{lineage.max_ancestor_generation} gen</span>
+                  <span style={{ fontSize: '1.8rem', fontWeight: 500, fontFamily: 'var(--font-sans)' }}>{lineage.max_ancestor_generation} gen</span>
                 </div>
                 <div className="glass-card" style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', alignItems: 'center', textAlign: 'center' }}>
                   <ShieldAlert size={24} style={{ color: 'var(--warning)' }} />
                   <span style={{ fontSize: '0.75rem', color: 'var(--text-secondary)', uppercase: true } as any}>Max Descendant Depth</span>
-                  <span style={{ fontSize: '1.8rem', fontWeight: 800, fontFamily: 'var(--font-display)' }}>{lineage.max_descendant_generation} gen</span>
+                  <span style={{ fontSize: '1.8rem', fontWeight: 500, fontFamily: 'var(--font-sans)' }}>{lineage.max_descendant_generation} gen</span>
                 </div>
               </div>
 
@@ -216,7 +216,7 @@ export const ReportsDashboard: React.FC<ReportsDashboardProps> = ({
                     ))}
                   </div>
                 ) : (
-                  <span style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>No historical locations documented for this branch.</span>
+                  <span style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>No locations recorded for this branch</span>
                 )}
               </div>
             </div>
@@ -244,7 +244,7 @@ export const ReportsDashboard: React.FC<ReportsDashboardProps> = ({
                       </div>
                     ))
                   ) : (
-                    <span style={{ fontSize: '0.85rem', color: 'var(--success)' }}>✓ All profiles contain verified sources.</span>
+                    <span style={{ fontSize: '0.85rem', color: 'var(--success)', display: 'flex', alignItems: 'center', gap: '6px' }}><Check size={14} strokeWidth={1.5} /> All profiles cite a verified source</span>
                   )}
                 </div>
               </div>
@@ -268,7 +268,7 @@ export const ReportsDashboard: React.FC<ReportsDashboardProps> = ({
                       </div>
                     ))
                   ) : (
-                    <span style={{ fontSize: '0.85rem', color: 'var(--success)' }}>✓ All profiles have birth dates recorded.</span>
+                    <span style={{ fontSize: '0.85rem', color: 'var(--success)', display: 'flex', alignItems: 'center', gap: '6px' }}><Check size={14} strokeWidth={1.5} /> All profiles have a birth date</span>
                   )}
                 </div>
               </div>
@@ -292,7 +292,7 @@ export const ReportsDashboard: React.FC<ReportsDashboardProps> = ({
                       </div>
                     ))
                   ) : (
-                    <span style={{ fontSize: '0.85rem', color: 'var(--success)' }}>✓ No profiles contain ambiguous genders.</span>
+                    <span style={{ fontSize: '0.85rem', color: 'var(--success)', display: 'flex', alignItems: 'center', gap: '6px' }}><Check size={14} strokeWidth={1.5} /> No profiles with an unclear gender</span>
                   )}
                 </div>
               </div>
@@ -308,18 +308,18 @@ export const ReportsDashboard: React.FC<ReportsDashboardProps> = ({
               </div>
               
               {biography.timeline.length > 0 ? (
-                <div className="timeline-container" style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', position: 'relative', paddingLeft: '1.5rem', borderLeft: '2px solid rgba(255,255,255,0.05)', marginLeft: '0.5rem' }}>
+                <div className="timeline-container" style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', position: 'relative', paddingLeft: '1.5rem', borderLeft: '2px solid rgba(239, 233, 222, 0.05)', marginLeft: '0.5rem' }}>
                   {biography.timeline.map((event, idx) => (
                     <div key={idx} className="timeline-event" style={{ position: 'relative' }}>
                       
                       {/* Bullet circle */}
-                      <div className="timeline-bullet" style={{ position: 'absolute', left: '-2.05rem', top: '0.2rem', background: '#0b0f19', border: '2px solid rgba(255,255,255,0.1)', width: '22px', height: '22px', borderRadius: '50%', display: 'flex', justifyContent: 'center', alignItems: 'center', zIndex: 2 }}>
+                      <div className="timeline-bullet" style={{ position: 'absolute', left: '-2.05rem', top: '0.2rem', background: 'var(--bg-primary)', border: '2px solid rgba(239, 233, 222, 0.1)', width: '22px', height: '22px', borderRadius: '50%', display: 'flex', justifyContent: 'center', alignItems: 'center', zIndex: 2 }}>
                         {getTimelineIcon(event.event_type)}
                       </div>
 
                       {/* Content card */}
                       <div style={{ display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
-                        <span style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--accent-primary)' }}>
+                        <span style={{ fontSize: '0.75rem', fontWeight: 500, color: 'var(--accent-primary)' }}>
                           {formatDate(event.date)}
                         </span>
                         <span style={{ fontSize: '0.85rem', fontWeight: 600, color: 'var(--text-primary)' }}>
@@ -336,7 +336,7 @@ export const ReportsDashboard: React.FC<ReportsDashboardProps> = ({
                   ))}
                 </div>
               ) : (
-                <span style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>No timeline events compiled. Make sure the individual has vital dates recorded.</span>
+                <span style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>No timeline events yet. Add birth, marriage or death dates to build one.</span>
               )}
             </div>
           )}

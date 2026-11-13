@@ -132,7 +132,7 @@ export const PersonDetails: React.FC<PersonDetailsProps> = ({
     options?: { value: string; label: string }[]
   ) => (
     <div className="detail-item" style={{ flexDirection: 'column', alignItems: 'flex-start', gap: '0.25rem' }}>
-      <label style={{ fontSize: '0.7rem', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+      <label style={{ fontSize: '0.7rem', color: 'var(--text-muted)', }}>
         {label}
       </label>
       {type === 'textarea' ? (
@@ -174,7 +174,7 @@ export const PersonDetails: React.FC<PersonDetailsProps> = ({
               title="Edit profile"
               style={{
                 display: 'flex', alignItems: 'center', gap: '0.3rem',
-                background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.1)',
+                background: 'rgba(239, 233, 222, 0.06)', border: '1px solid rgba(239, 233, 222, 0.1)',
                 color: 'var(--text-secondary)', borderRadius: '6px',
                 padding: '0.25rem 0.55rem', fontSize: '0.75rem', cursor: 'pointer',
               }}
@@ -190,7 +190,7 @@ export const PersonDetails: React.FC<PersonDetailsProps> = ({
                 style={{
                   display: 'flex', alignItems: 'center', gap: '0.3rem',
                   background: 'var(--accent-primary)', border: 'none',
-                  color: 'white', borderRadius: '6px',
+                  color: 'var(--text-primary)', borderRadius: '6px',
                   padding: '0.25rem 0.6rem', fontSize: '0.75rem', cursor: 'pointer',
                   opacity: saving ? 0.6 : 1,
                 }}
@@ -201,7 +201,7 @@ export const PersonDetails: React.FC<PersonDetailsProps> = ({
                 onClick={handleCancel}
                 style={{
                   display: 'flex', alignItems: 'center', gap: '0.3rem',
-                  background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.1)',
+                  background: 'rgba(239, 233, 222, 0.06)', border: '1px solid rgba(239, 233, 222, 0.1)',
                   color: 'var(--text-secondary)', borderRadius: '6px',
                   padding: '0.25rem 0.55rem', fontSize: '0.75rem', cursor: 'pointer',
                 }}
@@ -215,8 +215,8 @@ export const PersonDetails: React.FC<PersonDetailsProps> = ({
         {error && (
           <div style={{
             marginTop: '0.5rem', padding: '0.5rem 0.75rem',
-            background: 'rgba(239,68,68,0.12)', border: '1px solid rgba(239,68,68,0.3)',
-            borderRadius: '6px', fontSize: '0.8rem', color: '#f87171',
+            background: 'rgba(201, 83, 63, 0.12)', border: '1px solid rgba(201, 83, 63, 0.3)',
+            borderRadius: '6px', fontSize: '0.8rem', color: 'var(--kente-clay-ink)',
           }}>
             {error}
           </div>
@@ -267,7 +267,7 @@ export const PersonDetails: React.FC<PersonDetailsProps> = ({
         ) : (
           <>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '0.25rem', marginBottom: '1.25rem', marginTop: '0.5rem' }}>
-              <h2 style={{ fontSize: '1.4rem', fontFamily: 'var(--font-display)', fontWeight: 800 }}>
+              <h2 style={{ fontSize: '1.4rem', fontFamily: 'var(--font-display)', fontWeight: 500 }}>
                 {person.first_name} {person.last_name}
               </h2>
               {person.maiden_name && (
@@ -278,18 +278,18 @@ export const PersonDetails: React.FC<PersonDetailsProps> = ({
               {/* Display Clan, Paramountcy, Sub-Stool if available */}
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.4rem', marginTop: '0.5rem' }}>
                 {person.clan_id && (
-                  <span className="pill pill-half" style={{ background: 'rgba(245,158,11,0.15)', color: '#fbbf24', border: '1px solid rgba(245,158,11,0.3)' }}>
-                    Clan: {clans.find(c => c.id === person.clan_id)?.name || 'Loading...'}
+                  <span className="pill pill-half" style={{ background: 'rgba(214, 164, 64, 0.15)', color: 'var(--accent-ink)', border: '1px solid rgba(214, 164, 64, 0.3)' }}>
+                    Clan: {clans.find(c => c.id === person.clan_id)?.name || '…'}
                   </span>
                 )}
                 {person.paramountcy_id && (
-                  <span className="pill pill-half" style={{ background: 'rgba(99,102,241,0.15)', color: '#818cf8', border: '1px solid rgba(99,102,241,0.3)' }}>
-                    {paramountcies.find(p => p.id === person.paramountcy_id)?.name || 'Loading...'}
+                  <span className="pill pill-half" style={{ background: 'rgba(214, 164, 64, 0.15)', color: 'var(--accent-ink)', border: '1px solid rgba(214, 164, 64, 0.3)' }}>
+                    {paramountcies.find(p => p.id === person.paramountcy_id)?.name || '…'}
                   </span>
                 )}
                 {person.sub_stool_id && (
-                  <span className="pill pill-half" style={{ background: 'rgba(16,185,129,0.15)', color: '#34d399', border: '1px solid rgba(16,185,129,0.3)' }}>
-                    Stool: {subStools.find(s => s.id === person.sub_stool_id)?.name || 'Loading...'}
+                  <span className="pill pill-half" style={{ background: 'rgba(63, 158, 107, 0.15)', color: 'var(--kente-green-ink)', border: '1px solid rgba(63, 158, 107, 0.3)' }}>
+                    Stool: {subStools.find(s => s.id === person.sub_stool_id)?.name || '…'}
                   </span>
                 )}
               </div>
@@ -448,9 +448,9 @@ export const PersonDetails: React.FC<PersonDetailsProps> = ({
                   style={{
                     display: 'flex', justifyContent: 'space-between', alignItems: 'center',
                     padding: '0.5rem 0.6rem',
-                    background: 'rgba(255,255,255,0.03)',
+                    background: 'rgba(239, 233, 222, 0.03)',
                     borderRadius: '8px',
-                    border: '1px solid rgba(255,255,255,0.06)',
+                    border: '1px solid rgba(239, 233, 222, 0.06)',
                   }}
                 >
                   <div style={{ flex: 1, minWidth: 0 }}>
@@ -475,8 +475,8 @@ export const PersonDetails: React.FC<PersonDetailsProps> = ({
                           style={{
                             display: 'flex', alignItems: 'center', justifyContent: 'center',
                             width: '28px', height: '28px', borderRadius: '6px',
-                            background: 'rgba(99,102,241,0.15)', border: '1px solid rgba(99,102,241,0.3)',
-                            color: '#818cf8', cursor: 'pointer',
+                            background: 'rgba(214, 164, 64, 0.15)', border: '1px solid rgba(214, 164, 64, 0.3)',
+                            color: 'var(--accent-ink)', cursor: 'pointer',
                           }}
                         >
                           <Pencil size={12} />
@@ -489,8 +489,8 @@ export const PersonDetails: React.FC<PersonDetailsProps> = ({
                           style={{
                             display: 'flex', alignItems: 'center', justifyContent: 'center',
                             width: '28px', height: '28px', borderRadius: '6px',
-                            background: 'rgba(239,68,68,0.15)', border: '1px solid rgba(239,68,68,0.3)',
-                            color: '#f87171', cursor: 'pointer',
+                            background: 'rgba(201, 83, 63, 0.15)', border: '1px solid rgba(201, 83, 63, 0.3)',
+                            color: 'var(--kente-clay-ink)', cursor: 'pointer',
                           }}
                         >
                           <Trash2 size={12} />

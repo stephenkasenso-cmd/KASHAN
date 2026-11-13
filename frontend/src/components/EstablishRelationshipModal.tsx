@@ -149,7 +149,7 @@ export const EstablishRelationshipModal: React.FC<EstablishRelationshipModalProp
         throw new Error(data.error || 'Failed to establish relationship.');
       }
 
-      setSuccessMsg('Relationship established successfully!');
+      setSuccessMsg('Relationship established');
       setTimeout(() => {
         onRelationshipEstablished();
         onClose();
@@ -174,15 +174,15 @@ export const EstablishRelationshipModal: React.FC<EstablishRelationshipModalProp
       padding: '1rem'
     }}>
       <div style={{
-        backgroundColor: '#111827',
-        border: '1px solid rgba(255, 255, 255, 0.12)',
+        backgroundColor: 'var(--bg-card)',
+        border: '1px solid rgba(239, 233, 222, 0.12)',
         borderRadius: '16px',
         width: '100%',
         maxWidth: '660px',
         maxHeight: '90vh',
         overflowY: 'auto',
         boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.7)',
-        color: '#f3f4f6',
+        color: 'var(--text-primary)',
         display: 'flex',
         flexDirection: 'column'
       }}>
@@ -190,8 +190,8 @@ export const EstablishRelationshipModal: React.FC<EstablishRelationshipModalProp
         {/* Modal Header */}
         <div style={{
           padding: '1.25rem 1.5rem',
-          borderBottom: '1px solid rgba(255, 255, 255, 0.08)',
-          background: 'linear-gradient(135deg, rgba(217, 119, 6, 0.15), rgba(17, 24, 39, 0.8))',
+          borderBottom: '1px solid rgba(239, 233, 222, 0.08)',
+          background: 'var(--bg-card)',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between'
@@ -199,10 +199,10 @@ export const EstablishRelationshipModal: React.FC<EstablishRelationshipModalProp
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
             <div style={{
               padding: '0.5rem',
-              backgroundColor: 'rgba(217, 119, 6, 0.15)',
-              border: '1px solid rgba(217, 119, 6, 0.3)',
+              backgroundColor: 'rgba(214, 164, 64, 0.15)',
+              border: '1px solid rgba(214, 164, 64, 0.3)',
               borderRadius: '10px',
-              color: '#fbbf24',
+              color: 'var(--accent-ink)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center'
@@ -210,10 +210,10 @@ export const EstablishRelationshipModal: React.FC<EstablishRelationshipModalProp
               <Crown size={20} />
             </div>
             <div>
-              <h2 style={{ fontSize: '1.15rem', fontWeight: 700, color: '#f9fafb', margin: 0 }}>
+              <h2 style={{ fontSize: '1.15rem', fontWeight: 500, color: 'var(--text-primary)', margin: 0 }}>
                 Establish Relationship Wizard
               </h2>
-              <p style={{ fontSize: '0.75rem', color: '#9ca3af', margin: 0, marginTop: '2px' }}>
+              <p style={{ fontSize: '0.75rem', color: 'var(--text-secondary)', margin: 0, marginTop: '2px' }}>
                 HCI-simplified workflow for biological ancestry and dynastic peer links
               </p>
             </div>
@@ -224,7 +224,7 @@ export const EstablishRelationshipModal: React.FC<EstablishRelationshipModalProp
             style={{
               background: 'transparent',
               border: 'none',
-              color: '#9ca3af',
+              color: 'var(--text-secondary)',
               cursor: 'pointer',
               padding: '0.35rem',
               borderRadius: '8px',
@@ -243,13 +243,13 @@ export const EstablishRelationshipModal: React.FC<EstablishRelationshipModalProp
           {error && (
             <div style={{
               padding: '0.75rem 1rem',
-              backgroundColor: 'rgba(239, 68, 68, 0.12)',
-              border: '1px solid rgba(239, 68, 68, 0.3)',
+              backgroundColor: 'rgba(201, 83, 63, 0.12)',
+              border: '1px solid rgba(201, 83, 63, 0.3)',
               borderRadius: '10px',
               display: 'flex',
               alignItems: 'center',
               gap: '0.6rem',
-              color: '#fca5a5',
+              color: 'var(--kente-clay-ink)',
               fontSize: '0.8rem'
             }}>
               <AlertCircle size={16} style={{ flexShrink: 0 }} />
@@ -260,13 +260,13 @@ export const EstablishRelationshipModal: React.FC<EstablishRelationshipModalProp
           {successMsg && (
             <div style={{
               padding: '0.75rem 1rem',
-              backgroundColor: 'rgba(16, 185, 129, 0.12)',
-              border: '1px solid rgba(16, 185, 129, 0.3)',
+              backgroundColor: 'rgba(63, 158, 107, 0.12)',
+              border: '1px solid rgba(63, 158, 107, 0.3)',
               borderRadius: '10px',
               display: 'flex',
               alignItems: 'center',
               gap: '0.6rem',
-              color: '#6ee7b7',
+              color: 'var(--kente-green-ink)',
               fontSize: '0.8rem'
             }}>
               <Check size={16} style={{ flexShrink: 0 }} />
@@ -279,7 +279,7 @@ export const EstablishRelationshipModal: React.FC<EstablishRelationshipModalProp
             
             {/* Person A Selector */}
             <div style={{ position: 'relative' }}>
-              <label style={{ display: 'block', fontSize: '0.75rem', fontWeight: 600, color: '#d1d5db', marginBottom: '0.35rem' }}>
+              <label style={{ display: 'block', fontSize: '0.75rem', fontWeight: 600, color: 'var(--text-primary)', marginBottom: '0.35rem' }}>
                 Person A (Origin / Predecessor)
               </label>
               <input
@@ -291,20 +291,20 @@ export const EstablishRelationshipModal: React.FC<EstablishRelationshipModalProp
                 }}
                 onFocus={() => setP1Focused(true)}
                 onBlur={() => setTimeout(() => setP1Focused(false), 200)}
-                placeholder="Search Person A..."
+                placeholder="Search person A"
                 style={{
                   width: '100%',
-                  backgroundColor: '#0b0f19',
-                  border: '1px solid rgba(255, 255, 255, 0.15)',
+                  backgroundColor: 'var(--bg-primary)',
+                  border: '1px solid rgba(239, 233, 222, 0.15)',
                   borderRadius: '8px',
                   padding: '0.6rem 0.8rem',
-                  color: '#fff',
+                  color: 'var(--text-primary)',
                   fontSize: '0.825rem',
                   outline: 'none'
                 }}
               />
               {selectedP1 && (
-                <div style={{ marginTop: '4px', fontSize: '0.7rem', color: '#fbbf24', display: 'flex', alignItems: 'center', gap: '4px', fontWeight: 600 }}>
+                <div style={{ marginTop: '4px', fontSize: '0.7rem', color: 'var(--accent-ink)', display: 'flex', alignItems: 'center', gap: '4px', fontWeight: 600 }}>
                   <Check size={12} /> {selectedP1.fullName || `${selectedP1.first_name} ${selectedP1.last_name}`}
                 </div>
               )}
@@ -315,8 +315,8 @@ export const EstablishRelationshipModal: React.FC<EstablishRelationshipModalProp
                   left: 0,
                   right: 0,
                   zIndex: 50,
-                  backgroundColor: '#0e1726',
-                  border: '1px solid rgba(255, 255, 255, 0.15)',
+                  backgroundColor: 'var(--bg-card)',
+                  border: '1px solid rgba(239, 233, 222, 0.15)',
                   borderRadius: '8px',
                   marginTop: '4px',
                   maxHeight: '180px',
@@ -335,13 +335,13 @@ export const EstablishRelationshipModal: React.FC<EstablishRelationshipModalProp
                         display: 'flex',
                         justifyContent: 'space-between',
                         alignItems: 'center',
-                        borderBottom: '1px solid rgba(255, 255, 255, 0.05)',
+                        borderBottom: '1px solid rgba(239, 233, 222, 0.05)',
                         cursor: 'pointer',
                         fontSize: '0.8rem'
                       }}
                     >
-                      <span style={{ fontWeight: 500, color: '#f3f4f6' }}>{p.fullName || `${p.first_name} ${p.last_name}`}</span>
-                      <span style={{ fontSize: '0.7rem', color: '#9ca3af' }}>{p.profession || p.gender}</span>
+                      <span style={{ fontWeight: 500, color: 'var(--text-primary)' }}>{p.fullName || `${p.first_name} ${p.last_name}`}</span>
+                      <span style={{ fontSize: '0.7rem', color: 'var(--text-secondary)' }}>{p.profession || p.gender}</span>
                     </div>
                   ))}
                 </div>
@@ -350,7 +350,7 @@ export const EstablishRelationshipModal: React.FC<EstablishRelationshipModalProp
 
             {/* Person B Selector */}
             <div style={{ position: 'relative' }}>
-              <label style={{ display: 'block', fontSize: '0.75rem', fontWeight: 600, color: '#d1d5db', marginBottom: '0.35rem' }}>
+              <label style={{ display: 'block', fontSize: '0.75rem', fontWeight: 600, color: 'var(--text-primary)', marginBottom: '0.35rem' }}>
                 Person B (Target / Successor / Child)
               </label>
               <input
@@ -362,20 +362,20 @@ export const EstablishRelationshipModal: React.FC<EstablishRelationshipModalProp
                 }}
                 onFocus={() => setP2Focused(true)}
                 onBlur={() => setTimeout(() => setP2Focused(false), 200)}
-                placeholder="Search Person B..."
+                placeholder="Search person B"
                 style={{
                   width: '100%',
-                  backgroundColor: '#0b0f19',
-                  border: '1px solid rgba(255, 255, 255, 0.15)',
+                  backgroundColor: 'var(--bg-primary)',
+                  border: '1px solid rgba(239, 233, 222, 0.15)',
                   borderRadius: '8px',
                   padding: '0.6rem 0.8rem',
-                  color: '#fff',
+                  color: 'var(--text-primary)',
                   fontSize: '0.825rem',
                   outline: 'none'
                 }}
               />
               {selectedP2 && (
-                <div style={{ marginTop: '4px', fontSize: '0.7rem', color: '#fbbf24', display: 'flex', alignItems: 'center', gap: '4px', fontWeight: 600 }}>
+                <div style={{ marginTop: '4px', fontSize: '0.7rem', color: 'var(--accent-ink)', display: 'flex', alignItems: 'center', gap: '4px', fontWeight: 600 }}>
                   <Check size={12} /> {selectedP2.fullName || `${selectedP2.first_name} ${selectedP2.last_name}`}
                 </div>
               )}
@@ -386,8 +386,8 @@ export const EstablishRelationshipModal: React.FC<EstablishRelationshipModalProp
                   left: 0,
                   right: 0,
                   zIndex: 50,
-                  backgroundColor: '#0e1726',
-                  border: '1px solid rgba(255, 255, 255, 0.15)',
+                  backgroundColor: 'var(--bg-card)',
+                  border: '1px solid rgba(239, 233, 222, 0.15)',
                   borderRadius: '8px',
                   marginTop: '4px',
                   maxHeight: '180px',
@@ -406,13 +406,13 @@ export const EstablishRelationshipModal: React.FC<EstablishRelationshipModalProp
                         display: 'flex',
                         justifyContent: 'space-between',
                         alignItems: 'center',
-                        borderBottom: '1px solid rgba(255, 255, 255, 0.05)',
+                        borderBottom: '1px solid rgba(239, 233, 222, 0.05)',
                         cursor: 'pointer',
                         fontSize: '0.8rem'
                       }}
                     >
-                      <span style={{ fontWeight: 500, color: '#f3f4f6' }}>{p.fullName || `${p.first_name} ${p.last_name}`}</span>
-                      <span style={{ fontSize: '0.7rem', color: '#9ca3af' }}>{p.profession || p.gender}</span>
+                      <span style={{ fontWeight: 500, color: 'var(--text-primary)' }}>{p.fullName || `${p.first_name} ${p.last_name}`}</span>
+                      <span style={{ fontSize: '0.7rem', color: 'var(--text-secondary)' }}>{p.profession || p.gender}</span>
                     </div>
                   ))}
                 </div>
@@ -422,7 +422,7 @@ export const EstablishRelationshipModal: React.FC<EstablishRelationshipModalProp
 
           {/* Category Tabs */}
           <div>
-            <div style={{ display: 'flex', gap: '0.5rem', borderBottom: '1px solid rgba(255, 255, 255, 0.1)', marginBottom: '0.85rem' }}>
+            <div style={{ display: 'flex', gap: '0.5rem', borderBottom: '1px solid rgba(239, 233, 222, 0.1)', marginBottom: '0.85rem' }}>
               <button
                 type="button"
                 onClick={() => {
@@ -435,8 +435,8 @@ export const EstablishRelationshipModal: React.FC<EstablishRelationshipModalProp
                   fontWeight: 600,
                   background: 'transparent',
                   border: 'none',
-                  borderBottom: activeTab === 'BIOLOGICAL' ? '2px solid #f59e0b' : '2px solid transparent',
-                  color: activeTab === 'BIOLOGICAL' ? '#fbbf24' : '#9ca3af',
+                  borderBottom: activeTab === 'BIOLOGICAL' ? '2px solid var(--accent-ink)' : '2px solid transparent',
+                  color: activeTab === 'BIOLOGICAL' ? 'var(--accent-ink)' : 'var(--text-secondary)',
                   cursor: 'pointer',
                   display: 'flex',
                   alignItems: 'center',
@@ -459,8 +459,8 @@ export const EstablishRelationshipModal: React.FC<EstablishRelationshipModalProp
                   fontWeight: 600,
                   background: 'transparent',
                   border: 'none',
-                  borderBottom: activeTab === 'ROYAL_PEER' ? '2px solid #f59e0b' : '2px solid transparent',
-                  color: activeTab === 'ROYAL_PEER' ? '#fbbf24' : '#9ca3af',
+                  borderBottom: activeTab === 'ROYAL_PEER' ? '2px solid var(--accent-ink)' : '2px solid transparent',
+                  color: activeTab === 'ROYAL_PEER' ? 'var(--accent-ink)' : 'var(--text-secondary)',
                   cursor: 'pointer',
                   display: 'flex',
                   alignItems: 'center',
@@ -470,7 +470,7 @@ export const EstablishRelationshipModal: React.FC<EstablishRelationshipModalProp
                 <Crown size={14} />
                 Royal & Peer Succession
                 {recommendedCategories.includes('DYNASTIC_SUCCESSOR') && (
-                  <span style={{ backgroundColor: 'rgba(245, 158, 11, 0.2)', color: '#fcd34d', fontSize: '0.65rem', padding: '1px 6px', borderRadius: '10px' }}>
+                  <span style={{ backgroundColor: 'rgba(214, 164, 64, 0.2)', color: 'var(--accent-ink)', fontSize: '0.65rem', padding: '1px 6px', borderRadius: '10px' }}>
                     Recommended
                   </span>
                 )}
@@ -486,15 +486,15 @@ export const EstablishRelationshipModal: React.FC<EstablishRelationshipModalProp
                   style={{
                     padding: '0.75rem',
                     borderRadius: '10px',
-                    border: category === 'PARENT_CHILD' ? '1px solid #f59e0b' : '1px solid rgba(255, 255, 255, 0.1)',
-                    backgroundColor: category === 'PARENT_CHILD' ? 'rgba(245, 158, 11, 0.1)' : '#0b0f19',
-                    color: category === 'PARENT_CHILD' ? '#fcd34d' : '#d1d5db',
+                    border: category === 'PARENT_CHILD' ? '1px solid var(--accent-ink)' : '1px solid rgba(239, 233, 222, 0.1)',
+                    backgroundColor: category === 'PARENT_CHILD' ? 'rgba(214, 164, 64, 0.1)' : 'var(--bg-primary)',
+                    color: category === 'PARENT_CHILD' ? 'var(--accent-ink)' : 'var(--text-primary)',
                     textAlign: 'left',
                     cursor: 'pointer'
                   }}
                 >
-                  <div style={{ fontWeight: 700, fontSize: '0.8rem', marginBottom: '2px' }}>Parent-Child</div>
-                  <div style={{ fontSize: '0.7rem', color: '#9ca3af' }}>Biological parent to child link</div>
+                  <div style={{ fontWeight: 500, fontSize: '0.8rem', marginBottom: '2px' }}>Parent-Child</div>
+                  <div style={{ fontSize: '0.7rem', color: 'var(--text-secondary)' }}>Biological parent to child link</div>
                 </button>
 
                 <button
@@ -503,15 +503,15 @@ export const EstablishRelationshipModal: React.FC<EstablishRelationshipModalProp
                   style={{
                     padding: '0.75rem',
                     borderRadius: '10px',
-                    border: category === 'SIBLING' ? '1px solid #f59e0b' : '1px solid rgba(255, 255, 255, 0.1)',
-                    backgroundColor: category === 'SIBLING' ? 'rgba(245, 158, 11, 0.1)' : '#0b0f19',
-                    color: category === 'SIBLING' ? '#fcd34d' : '#d1d5db',
+                    border: category === 'SIBLING' ? '1px solid var(--accent-ink)' : '1px solid rgba(239, 233, 222, 0.1)',
+                    backgroundColor: category === 'SIBLING' ? 'rgba(214, 164, 64, 0.1)' : 'var(--bg-primary)',
+                    color: category === 'SIBLING' ? 'var(--accent-ink)' : 'var(--text-primary)',
                     textAlign: 'left',
                     cursor: 'pointer'
                   }}
                 >
-                  <div style={{ fontWeight: 700, fontSize: '0.8rem', marginBottom: '2px' }}>Sibling</div>
-                  <div style={{ fontSize: '0.7rem', color: '#9ca3af' }}>Brother or sister relation</div>
+                  <div style={{ fontWeight: 500, fontSize: '0.8rem', marginBottom: '2px' }}>Sibling</div>
+                  <div style={{ fontSize: '0.7rem', color: 'var(--text-secondary)' }}>Brother or sister relation</div>
                 </button>
 
                 <button
@@ -520,15 +520,15 @@ export const EstablishRelationshipModal: React.FC<EstablishRelationshipModalProp
                   style={{
                     padding: '0.75rem',
                     borderRadius: '10px',
-                    border: category === 'SPOUSE' ? '1px solid #f59e0b' : '1px solid rgba(255, 255, 255, 0.1)',
-                    backgroundColor: category === 'SPOUSE' ? 'rgba(245, 158, 11, 0.1)' : '#0b0f19',
-                    color: category === 'SPOUSE' ? '#fcd34d' : '#d1d5db',
+                    border: category === 'SPOUSE' ? '1px solid var(--accent-ink)' : '1px solid rgba(239, 233, 222, 0.1)',
+                    backgroundColor: category === 'SPOUSE' ? 'rgba(214, 164, 64, 0.1)' : 'var(--bg-primary)',
+                    color: category === 'SPOUSE' ? 'var(--accent-ink)' : 'var(--text-primary)',
                     textAlign: 'left',
                     cursor: 'pointer'
                   }}
                 >
-                  <div style={{ fontWeight: 700, fontSize: '0.8rem', marginBottom: '2px' }}>Spouse</div>
-                  <div style={{ fontSize: '0.7rem', color: '#9ca3af' }}>Marriage or marital partner</div>
+                  <div style={{ fontWeight: 500, fontSize: '0.8rem', marginBottom: '2px' }}>Spouse</div>
+                  <div style={{ fontSize: '0.7rem', color: 'var(--text-secondary)' }}>Marriage or marital partner</div>
                 </button>
               </div>
             )}
@@ -541,15 +541,15 @@ export const EstablishRelationshipModal: React.FC<EstablishRelationshipModalProp
                   style={{
                     padding: '0.75rem',
                     borderRadius: '10px',
-                    border: category === 'DYNASTIC_SUCCESSOR' ? '1px solid #f59e0b' : '1px solid rgba(255, 255, 255, 0.1)',
-                    backgroundColor: category === 'DYNASTIC_SUCCESSOR' ? 'rgba(245, 158, 11, 0.1)' : '#0b0f19',
-                    color: category === 'DYNASTIC_SUCCESSOR' ? '#fcd34d' : '#d1d5db',
+                    border: category === 'DYNASTIC_SUCCESSOR' ? '1px solid var(--accent-ink)' : '1px solid rgba(239, 233, 222, 0.1)',
+                    backgroundColor: category === 'DYNASTIC_SUCCESSOR' ? 'rgba(214, 164, 64, 0.1)' : 'var(--bg-primary)',
+                    color: category === 'DYNASTIC_SUCCESSOR' ? 'var(--accent-ink)' : 'var(--text-primary)',
                     textAlign: 'left',
                     cursor: 'pointer'
                   }}
                 >
-                  <div style={{ fontWeight: 700, fontSize: '0.8rem', marginBottom: '2px' }}>Dynastic Successor</div>
-                  <div style={{ fontSize: '0.7rem', color: '#9ca3af' }}>Horizontal peer link (Predecessor → Successor)</div>
+                  <div style={{ fontWeight: 500, fontSize: '0.8rem', marginBottom: '2px' }}>Dynastic Successor</div>
+                  <div style={{ fontSize: '0.7rem', color: 'var(--text-secondary)' }}>Horizontal peer link (Predecessor → Successor)</div>
                 </button>
 
                 <button
@@ -558,15 +558,15 @@ export const EstablishRelationshipModal: React.FC<EstablishRelationshipModalProp
                   style={{
                     padding: '0.75rem',
                     borderRadius: '10px',
-                    border: category === 'QUEEN_MOTHER_STOOL_PAIR' ? '1px solid #f59e0b' : '1px solid rgba(255, 255, 255, 0.1)',
-                    backgroundColor: category === 'QUEEN_MOTHER_STOOL_PAIR' ? 'rgba(245, 158, 11, 0.1)' : '#0b0f19',
-                    color: category === 'QUEEN_MOTHER_STOOL_PAIR' ? '#fcd34d' : '#d1d5db',
+                    border: category === 'QUEEN_MOTHER_STOOL_PAIR' ? '1px solid var(--accent-ink)' : '1px solid rgba(239, 233, 222, 0.1)',
+                    backgroundColor: category === 'QUEEN_MOTHER_STOOL_PAIR' ? 'rgba(214, 164, 64, 0.1)' : 'var(--bg-primary)',
+                    color: category === 'QUEEN_MOTHER_STOOL_PAIR' ? 'var(--accent-ink)' : 'var(--text-primary)',
                     textAlign: 'left',
                     cursor: 'pointer'
                   }}
                 >
-                  <div style={{ fontWeight: 700, fontSize: '0.8rem', marginBottom: '2px' }}>Stool Counterpart</div>
-                  <div style={{ fontSize: '0.7rem', color: '#9ca3af' }}>Male Chief & Female Queen Mother pair</div>
+                  <div style={{ fontWeight: 500, fontSize: '0.8rem', marginBottom: '2px' }}>Stool Counterpart</div>
+                  <div style={{ fontSize: '0.7rem', color: 'var(--text-secondary)' }}>Male Chief & Female Queen Mother pair</div>
                 </button>
 
                 <button
@@ -575,15 +575,15 @@ export const EstablishRelationshipModal: React.FC<EstablishRelationshipModalProp
                   style={{
                     padding: '0.75rem',
                     borderRadius: '10px',
-                    border: category === 'FEKUO_SUB_STOOL' ? '1px solid #f59e0b' : '1px solid rgba(255, 255, 255, 0.1)',
-                    backgroundColor: category === 'FEKUO_SUB_STOOL' ? 'rgba(245, 158, 11, 0.1)' : '#0b0f19',
-                    color: category === 'FEKUO_SUB_STOOL' ? '#fcd34d' : '#d1d5db',
+                    border: category === 'FEKUO_SUB_STOOL' ? '1px solid var(--accent-ink)' : '1px solid rgba(239, 233, 222, 0.1)',
+                    backgroundColor: category === 'FEKUO_SUB_STOOL' ? 'rgba(214, 164, 64, 0.1)' : 'var(--bg-primary)',
+                    color: category === 'FEKUO_SUB_STOOL' ? 'var(--accent-ink)' : 'var(--text-primary)',
                     textAlign: 'left',
                     cursor: 'pointer'
                   }}
                 >
-                  <div style={{ fontWeight: 700, fontSize: '0.8rem', marginBottom: '2px' }}>Divisional Wing</div>
-                  <div style={{ fontSize: '0.7rem', color: '#9ca3af' }}>Paramountcy to sub-stool link</div>
+                  <div style={{ fontWeight: 500, fontSize: '0.8rem', marginBottom: '2px' }}>Divisional Wing</div>
+                  <div style={{ fontSize: '0.7rem', color: 'var(--text-secondary)' }}>Paramountcy to sub-stool link</div>
                 </button>
               </div>
             )}
@@ -593,13 +593,13 @@ export const EstablishRelationshipModal: React.FC<EstablishRelationshipModalProp
           {category === 'DYNASTIC_SUCCESSOR' && (
             <div style={{
               padding: '0.65rem 0.85rem',
-              backgroundColor: 'rgba(245, 158, 11, 0.12)',
-              border: '1px solid rgba(245, 158, 11, 0.3)',
+              backgroundColor: 'rgba(214, 164, 64, 0.12)',
+              border: '1px solid rgba(214, 164, 64, 0.3)',
               borderRadius: '8px',
               display: 'flex',
               gap: '0.6rem',
               alignItems: 'center',
-              color: '#fcd34d',
+              color: 'var(--accent-ink)',
               fontSize: '0.75rem'
             }}>
               <Info size={16} style={{ flexShrink: 0 }} />
@@ -612,13 +612,13 @@ export const EstablishRelationshipModal: React.FC<EstablishRelationshipModalProp
           {category === 'PARENT_CHILD' && (
             <div style={{
               padding: '0.65rem 0.85rem',
-              backgroundColor: 'rgba(59, 130, 246, 0.12)',
-              border: '1px solid rgba(59, 130, 246, 0.3)',
+              backgroundColor: 'rgba(111, 143, 201, 0.12)',
+              border: '1px solid rgba(111, 143, 201, 0.3)',
               borderRadius: '8px',
               display: 'flex',
               gap: '0.6rem',
               alignItems: 'center',
-              color: '#93c5fd',
+              color: 'var(--kente-indigo-ink)',
               fontSize: '0.75rem'
             }}>
               <Info size={16} style={{ flexShrink: 0 }} />
@@ -631,7 +631,7 @@ export const EstablishRelationshipModal: React.FC<EstablishRelationshipModalProp
           {/* Metadata Inputs */}
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '0.75rem' }}>
             <div>
-              <label style={{ display: 'block', fontSize: '0.7rem', fontWeight: 600, color: '#9ca3af', marginBottom: '0.25rem' }}>
+              <label style={{ display: 'block', fontSize: '0.7rem', fontWeight: 600, color: 'var(--text-secondary)', marginBottom: '0.25rem' }}>
                 Role / Wing
               </label>
               <input
@@ -641,11 +641,11 @@ export const EstablishRelationshipModal: React.FC<EstablishRelationshipModalProp
                 placeholder="e.g. Krontihene"
                 style={{
                   width: '100%',
-                  backgroundColor: '#0b0f19',
-                  border: '1px solid rgba(255, 255, 255, 0.15)',
+                  backgroundColor: 'var(--bg-primary)',
+                  border: '1px solid rgba(239, 233, 222, 0.15)',
                   borderRadius: '8px',
                   padding: '0.5rem 0.65rem',
-                  color: '#fff',
+                  color: 'var(--text-primary)',
                   fontSize: '0.75rem',
                   outline: 'none'
                 }}
@@ -653,7 +653,7 @@ export const EstablishRelationshipModal: React.FC<EstablishRelationshipModalProp
             </div>
 
             <div>
-              <label style={{ display: 'block', fontSize: '0.7rem', fontWeight: 600, color: '#9ca3af', marginBottom: '0.25rem' }}>
+              <label style={{ display: 'block', fontSize: '0.7rem', fontWeight: 600, color: 'var(--text-secondary)', marginBottom: '0.25rem' }}>
                 Start / Reign Start
               </label>
               <input
@@ -662,11 +662,11 @@ export const EstablishRelationshipModal: React.FC<EstablishRelationshipModalProp
                 onChange={e => setStartDate(e.target.value)}
                 style={{
                   width: '100%',
-                  backgroundColor: '#0b0f19',
-                  border: '1px solid rgba(255, 255, 255, 0.15)',
+                  backgroundColor: 'var(--bg-primary)',
+                  border: '1px solid rgba(239, 233, 222, 0.15)',
                   borderRadius: '8px',
                   padding: '0.5rem 0.65rem',
-                  color: '#fff',
+                  color: 'var(--text-primary)',
                   fontSize: '0.75rem',
                   outline: 'none'
                 }}
@@ -674,7 +674,7 @@ export const EstablishRelationshipModal: React.FC<EstablishRelationshipModalProp
             </div>
 
             <div>
-              <label style={{ display: 'block', fontSize: '0.7rem', fontWeight: 600, color: '#9ca3af', marginBottom: '0.25rem' }}>
+              <label style={{ display: 'block', fontSize: '0.7rem', fontWeight: 600, color: 'var(--text-secondary)', marginBottom: '0.25rem' }}>
                 End / Reign End
               </label>
               <input
@@ -683,11 +683,11 @@ export const EstablishRelationshipModal: React.FC<EstablishRelationshipModalProp
                 onChange={e => setEndDate(e.target.value)}
                 style={{
                   width: '100%',
-                  backgroundColor: '#0b0f19',
-                  border: '1px solid rgba(255, 255, 255, 0.15)',
+                  backgroundColor: 'var(--bg-primary)',
+                  border: '1px solid rgba(239, 233, 222, 0.15)',
                   borderRadius: '8px',
                   padding: '0.5rem 0.65rem',
-                  color: '#fff',
+                  color: 'var(--text-primary)',
                   fontSize: '0.75rem',
                   outline: 'none'
                 }}
@@ -696,7 +696,7 @@ export const EstablishRelationshipModal: React.FC<EstablishRelationshipModalProp
           </div>
 
           <div>
-            <label style={{ display: 'block', fontSize: '0.7rem', fontWeight: 600, color: '#9ca3af', marginBottom: '0.25rem' }}>
+            <label style={{ display: 'block', fontSize: '0.7rem', fontWeight: 600, color: 'var(--text-secondary)', marginBottom: '0.25rem' }}>
               Historical Notes / Customary Details
             </label>
             <textarea
@@ -706,11 +706,11 @@ export const EstablishRelationshipModal: React.FC<EstablishRelationshipModalProp
               placeholder="Historical context, court rulings, or treaty notes..."
               style={{
                 width: '100%',
-                backgroundColor: '#0b0f19',
-                border: '1px solid rgba(255, 255, 255, 0.15)',
+                backgroundColor: 'var(--bg-primary)',
+                border: '1px solid rgba(239, 233, 222, 0.15)',
                 borderRadius: '8px',
                 padding: '0.5rem 0.65rem',
-                color: '#fff',
+                color: 'var(--text-primary)',
                 fontSize: '0.75rem',
                 outline: 'none'
               }}
@@ -723,7 +723,7 @@ export const EstablishRelationshipModal: React.FC<EstablishRelationshipModalProp
             justifyContent: 'flex-end',
             gap: '0.65rem',
             paddingTop: '0.85rem',
-            borderTop: '1px solid rgba(255, 255, 255, 0.08)'
+            borderTop: '1px solid rgba(239, 233, 222, 0.08)'
           }}>
             <button
               type="button"
@@ -732,8 +732,8 @@ export const EstablishRelationshipModal: React.FC<EstablishRelationshipModalProp
                 padding: '0.5rem 1rem',
                 fontSize: '0.75rem',
                 fontWeight: 600,
-                color: '#d1d5db',
-                backgroundColor: '#1f2937',
+                color: 'var(--text-primary)',
+                backgroundColor: 'var(--bg-raised)',
                 border: 'none',
                 borderRadius: '8px',
                 cursor: 'pointer'
@@ -748,9 +748,9 @@ export const EstablishRelationshipModal: React.FC<EstablishRelationshipModalProp
               style={{
                 padding: '0.5rem 1.25rem',
                 fontSize: '0.75rem',
-                fontWeight: 700,
-                color: '#000',
-                background: 'linear-gradient(135deg, #f59e0b, #d97706)',
+                fontWeight: 500,
+                color: 'var(--accent-on)',
+                background: 'var(--accent-primary)',
                 border: 'none',
                 borderRadius: '8px',
                 cursor: 'pointer',
@@ -761,7 +761,7 @@ export const EstablishRelationshipModal: React.FC<EstablishRelationshipModalProp
               }}
             >
               <Link2 size={14} />
-              {isSubmitting ? 'Establishing...' : 'Establish Relationship'}
+              {isSubmitting ? 'Establishing…' : 'Establish Relationship'}
             </button>
           </div>
 

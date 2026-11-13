@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link2, AlertCircle, Trash2, Crown } from 'lucide-react';
+import { Link2, AlertCircle, Trash2, Crown, X, Check } from 'lucide-react';
 import { EstablishRelationshipModal } from './EstablishRelationshipModal';
 
 interface Person {
@@ -259,16 +259,12 @@ export const RelationshipForm: React.FC<RelationshipFormProps> = ({
           <button
             type="button"
             onClick={() => setIsWizardOpen(true)}
-            style={{
-              display: 'flex', alignItems: 'center', gap: '0.4rem',
-              background: 'linear-gradient(135deg, #d97706, #b45309)',
-              border: 'none', color: '#fff', borderRadius: '8px',
-              padding: '0.35rem 0.75rem', fontSize: '0.75rem', fontWeight: 600,
-              cursor: 'pointer', boxShadow: '0 2px 8px rgba(217, 119, 6, 0.3)'
-            }}
+            className="btn-secondary"
+            title="Open the relationship wizard"
+            style={{ padding: '4px 10px', fontSize: '12px', gap: '6px', whiteSpace: 'nowrap' }}
           >
-            <Crown size={14} />
-            Establish Relationship Wizard
+            <Crown size={14} strokeWidth={1.5} style={{ color: 'var(--accent-ink)' }} />
+            Wizard
           </button>
           {(existingRelationship || localExistingRelationship) && onCancelEdit && (
             <button
@@ -283,12 +279,12 @@ export const RelationshipForm: React.FC<RelationshipFormProps> = ({
               type="button"
               style={{
                 display: 'flex', alignItems: 'center', gap: '0.3rem',
-                background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.1)',
+                background: 'rgba(239, 233, 222, 0.06)', border: '1px solid rgba(239, 233, 222, 0.1)',
                 color: 'var(--text-secondary)', borderRadius: '6px',
                 padding: '0.25rem 0.55rem', fontSize: '0.75rem', cursor: 'pointer',
               }}
             >
-              ✕ Cancel
+              <X size={14} strokeWidth={1.5} /> Cancel
             </button>
           )}
         </div>
@@ -325,7 +321,7 @@ export const RelationshipForm: React.FC<RelationshipFormProps> = ({
             }}
             onFocus={() => setP1Focused(true)}
             onBlur={() => setTimeout(() => setP1Focused(false), 200)}
-            placeholder="Search name..."
+            placeholder="Search"
             required
             disabled={isReadOnly}
           />
@@ -347,7 +343,7 @@ export const RelationshipForm: React.FC<RelationshipFormProps> = ({
           )}
           {selectedP1 && (
             <div style={{ fontSize: '0.75rem', color: 'var(--accent-primary)', marginTop: '0.2rem' }}>
-              ✓ Selected: {selectedP1.first_name} {selectedP1.last_name} (ID: {selectedP1.person_id})
+              <Check size={14} strokeWidth={1.5} /> Selected: {selectedP1.first_name} {selectedP1.last_name} (ID: {selectedP1.person_id})
             </div>
           )}
         </div>
@@ -364,7 +360,7 @@ export const RelationshipForm: React.FC<RelationshipFormProps> = ({
             }}
             onFocus={() => setP2Focused(true)}
             onBlur={() => setTimeout(() => setP2Focused(false), 200)}
-            placeholder="Search name..."
+            placeholder="Search"
             required
             disabled={isReadOnly}
           />
@@ -386,7 +382,7 @@ export const RelationshipForm: React.FC<RelationshipFormProps> = ({
           )}
           {selectedP2 && (
             <div style={{ fontSize: '0.75rem', color: 'var(--accent-primary)', marginTop: '0.2rem' }}>
-              ✓ Selected: {selectedP2.first_name} {selectedP2.last_name} (ID: {selectedP2.person_id})
+              <Check size={14} strokeWidth={1.5} /> Selected: {selectedP2.first_name} {selectedP2.last_name} (ID: {selectedP2.person_id})
             </div>
           )}
         </div>
@@ -466,10 +462,10 @@ export const RelationshipForm: React.FC<RelationshipFormProps> = ({
           <div style={{
             fontSize: '0.78rem',
             padding: '0.5rem',
-            background: 'rgba(99,102,241,0.1)',
-            border: '1px solid rgba(99,102,241,0.25)',
+            background: 'rgba(214, 164, 64, 0.1)',
+            border: '1px solid rgba(214, 164, 64, 0.25)',
             borderRadius: '6px',
-            color: '#818cf8',
+            color: 'var(--accent-ink)',
             marginBottom: '0.75rem',
             textAlign: 'center'
           }}>
@@ -488,9 +484,9 @@ export const RelationshipForm: React.FC<RelationshipFormProps> = ({
               onClick={handleDeleteLocal}
               style={{
                 display: 'flex', alignItems: 'center', justifyContent: 'center',
-                background: 'rgba(239, 68, 68, 0.15)',
-                border: '1px solid rgba(239, 68, 68, 0.3)',
-                color: '#f87171',
+                background: 'rgba(201, 83, 63, 0.15)',
+                border: '1px solid rgba(201, 83, 63, 0.3)',
+                color: 'var(--kente-clay-ink)',
                 padding: '0 0.75rem',
                 borderRadius: '6px',
                 cursor: 'pointer'
@@ -512,7 +508,7 @@ export const RelationshipForm: React.FC<RelationshipFormProps> = ({
         {success && (
           <div className="alert alert-success">
             <AlertCircle size={16} style={{ flexShrink: 0 }} />
-            <span>Relationship linked successfully!</span>
+            <span>Relationship linked</span>
           </div>
         )}
       </form>

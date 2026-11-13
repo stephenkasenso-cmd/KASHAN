@@ -132,7 +132,7 @@ export const SettingsPanel: React.FC<SettingsPanelProps> = ({ view, onBack, curr
 
   const renderForm = () => {
     return (
-      <form onSubmit={handleSave} style={{ marginBottom: '2rem', padding: '1.5rem', background: 'rgba(255,255,255,0.03)', borderRadius: '8px' }}>
+      <form onSubmit={handleSave} style={{ marginBottom: '2rem', padding: '1.5rem', background: 'rgba(239, 233, 222, 0.03)', borderRadius: '8px' }}>
         <h3 style={{ marginBottom: '1rem' }}>{editItem ? 'Edit Record' : 'Add New Record'}</h3>
         <div style={{ display: 'grid', gap: '1rem' }}>
           
@@ -184,12 +184,12 @@ export const SettingsPanel: React.FC<SettingsPanelProps> = ({ view, onBack, curr
   };
 
   const renderTable = () => {
-    if (data.length === 0) return <p style={{ color: 'var(--text-secondary)' }}>No records found.</p>;
+    if (data.length === 0) return <p style={{ color: 'var(--text-secondary)' }}>No records yet</p>;
 
     const renderActions = (item: any, idField: string) => (
       <div style={{ display: 'flex', gap: '0.5rem' }}>
         <button className="icon-btn" onClick={() => openForm(item)} title="Edit"><Edit2 size={16} /></button>
-        <button className="icon-btn" style={{ color: '#ef4444' }} onClick={() => handleDelete(item[idField])} title="Delete"><Trash2 size={16} /></button>
+        <button className="icon-btn" style={{ color: 'var(--kente-clay-ink)' }} onClick={() => handleDelete(item[idField])} title="Delete"><Trash2 size={16} /></button>
       </div>
     );
 
@@ -256,8 +256,8 @@ export const SettingsPanel: React.FC<SettingsPanelProps> = ({ view, onBack, curr
                   <span style={{ 
                     padding: '0.2rem 0.5rem', 
                     borderRadius: '4px', 
-                    background: u.role === 'Admin' ? 'rgba(99, 102, 241, 0.2)' : 'rgba(255,255,255,0.1)',
-                    color: u.role === 'Admin' ? '#a5b4fc' : 'white',
+                    background: u.role === 'Admin' ? 'rgba(214, 164, 64, 0.2)' : 'rgba(239, 233, 222, 0.1)',
+                    color: u.role === 'Admin' ? 'var(--accent-ink)' : 'white',
                     fontSize: '0.8rem' 
                   }}>
                     {u.role}
@@ -290,7 +290,7 @@ export const SettingsPanel: React.FC<SettingsPanelProps> = ({ view, onBack, curr
           )}
         </div>
 
-        {error && <div style={{ color: '#ef4444', marginBottom: '1rem', padding: '1rem', background: 'rgba(239, 68, 68, 0.1)', borderRadius: '8px' }}>{error}</div>}
+        {error && <div style={{ color: 'var(--kente-clay-ink)', marginBottom: '1rem', padding: '1rem', background: 'rgba(201, 83, 63, 0.1)', borderRadius: '8px' }}>{error}</div>}
         
         {isEditing && renderForm()}
 
@@ -313,19 +313,19 @@ export const SettingsPanel: React.FC<SettingsPanelProps> = ({ view, onBack, curr
           text-align: left;
         }
         .data-table th {
-          background: rgba(255, 255, 255, 0.05);
+          background: rgba(239, 233, 222, 0.05);
           padding: 1rem;
           font-weight: 600;
           color: var(--text-secondary);
-          border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+          border-bottom: 1px solid rgba(239, 233, 222, 0.1);
         }
         .data-table td {
           padding: 1rem;
-          border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+          border-bottom: 1px solid rgba(239, 233, 222, 0.05);
           color: var(--text-primary);
         }
         .data-table tr:hover td {
-          background: rgba(255, 255, 255, 0.02);
+          background: rgba(239, 233, 222, 0.02);
         }
         .icon-btn {
           background: none;
@@ -337,7 +337,7 @@ export const SettingsPanel: React.FC<SettingsPanelProps> = ({ view, onBack, curr
           transition: background 0.2s, color 0.2s;
         }
         .icon-btn:hover {
-          background: rgba(255,255,255,0.1);
+          background: rgba(239, 233, 222, 0.1);
           color: white;
         }
       `}</style>

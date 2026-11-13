@@ -9,7 +9,7 @@ import { StoolsDashboard } from './components/StoolsDashboard';
 import { SettingsPanel } from './components/SettingsPanel';
 import { IndividualRegistrationTable } from './components/IndividualRegistrationTable';
 import { Login } from './components/Login';
-import { GitBranch, Search, AlertCircle, LogOut, Shield, Table as TableIcon } from 'lucide-react';
+import { GitBranch, Search, AlertCircle, LogOut, Table as TableIcon } from 'lucide-react';
 
 interface Person {
   person_id: number;
@@ -214,73 +214,68 @@ function App() {
     <div className="app-container">
       {/* Sidebar Left: Forms */}
       <div className="sidebar">
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.5rem' }}>
-          <GitBranch size={28} style={{ color: 'var(--accent-primary)' }} />
-          <h1 style={{ fontSize: '1.25rem', fontFamily: 'var(--font-display)', fontWeight: 800 }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <GitBranch size={20} strokeWidth={1.5} style={{ color: 'var(--accent-primary)' }} />
+          <span style={{ fontSize: '16px', fontWeight: 600, color: 'var(--text-primary)' }}>
             Family Tree Manager
-          </h1>
+          </span>
         </div>
 
         {/* User Card */}
         <div style={{
-          background: 'rgba(255, 255, 255, 0.03)',
+          background: 'var(--bg-card)',
           border: '1px solid var(--border-color)',
-          padding: '0.75rem',
-          borderRadius: '8px',
+          padding: '12px',
+          borderRadius: '10px',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
-          marginBottom: '0.5rem',
-          gap: '0.5rem'
+          gap: '8px'
         }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', minWidth: 0 }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '10px', minWidth: 0 }}>
             {currentUser.avatar_url ? (
-              <img 
-                src={currentUser.avatar_url} 
-                alt={currentUser.username} 
-                style={{ width: '32px', height: '32px', borderRadius: '6px', objectFit: 'cover' }} 
+              <img
+                src={currentUser.avatar_url}
+                alt={currentUser.username}
+                style={{ width: '32px', height: '32px', borderRadius: '6px', objectFit: 'cover' }}
               />
             ) : (
               <div style={{
-                background: currentUser.role === 'Admin' ? 'rgba(99, 102, 241, 0.15)' : currentUser.role === 'Manager' ? 'rgba(168, 85, 247, 0.15)' : 'rgba(16, 185, 129, 0.15)',
-                color: currentUser.role === 'Admin' ? '#a5b4fc' : currentUser.role === 'Manager' ? '#d8b4fe' : '#6ee7b7',
+                background: 'var(--bg-raised)',
+                color: 'var(--text-secondary)',
                 width: '32px',
                 height: '32px',
                 borderRadius: '6px',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                flexShrink: 0
+                flexShrink: 0,
+                fontSize: '13px',
+                fontWeight: 500
               }}>
-                <Shield size={16} />
+                {currentUser.username.slice(0, 1).toUpperCase()}
               </div>
             )}
             <div style={{ overflow: 'hidden' }}>
-              <div style={{ fontSize: '0.8rem', fontWeight: 700, color: 'var(--text-primary)', textOverflow: 'ellipsis', overflow: 'hidden', whiteSpace: 'nowrap' }}>
+              <div style={{ fontSize: '13px', fontWeight: 500, color: 'var(--text-primary)', textOverflow: 'ellipsis', overflow: 'hidden', whiteSpace: 'nowrap' }}>
                 {currentUser.username}
               </div>
-              <div style={{ fontSize: '0.65rem', color: 'var(--text-secondary)' }}>
-                {currentUser.role} {currentUser.email ? `• ${currentUser.email}` : ''}
+              <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '12px', color: 'var(--text-muted)', overflow: 'hidden', whiteSpace: 'nowrap', textOverflow: 'ellipsis' }}>
+                <span style={{
+                  width: '6px', height: '6px', borderRadius: '50%', flexShrink: 0,
+                  background: currentUser.role === 'Admin' ? 'var(--accent-primary)' : currentUser.role === 'Manager' ? 'var(--kente-rose)' : 'var(--kente-green)'
+                }} />
+                {currentUser.role}{currentUser.email ? ` · ${currentUser.email}` : ''}
               </div>
             </div>
           </div>
           <button
             onClick={() => setCurrentUser(null)}
-            title="Sign Out"
-            style={{
-              background: 'transparent',
-              border: 'none',
-              color: 'var(--text-muted)',
-              cursor: 'pointer',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              padding: '0.25rem',
-              borderRadius: '4px',
-              transition: 'color 0.2s',
-            }}
+            title="Sign out"
+            aria-label="Sign out"
+            style={{ background: 'transparent', color: 'var(--text-muted)', padding: '6px', borderRadius: '6px' }}
           >
-            <LogOut size={16} />
+            <LogOut size={16} strokeWidth={1.5} />
           </button>
         </div>
 
@@ -300,85 +295,30 @@ function App() {
         <div className="canvas-header">
           <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
             <div className="canvas-title">
-              {activeView === 'tree' ? 'Interactive Lineage Canvas' : 
-               activeView === 'table' ? 'Individual Registration Directory' :
-               activeView === 'stools' ? 'Paramount Stools' :
-               activeView === 'reports' ? 'Family Reports' : 'Dashboard'}
+              {activeView === 'tree' ? 'Lineage tree' : 
+               activeView === 'table' ? 'Registrations' :
+               activeView === 'stools' ? 'Stools' :
+               activeView === 'reports' ? 'Reports' : 'Dashboard'}
             </div>
-            <div style={{ display: 'flex', gap: '0.25rem', pointerEvents: 'auto' }}>
-              <button
-                onClick={() => { setActiveView('dashboard'); setActiveSettingsView(null); }}
-                style={{
-                  background: activeView === 'dashboard' ? 'var(--accent-gradient)' : 'rgba(255, 255, 255, 0.03)',
-                  color: 'white',
-                  padding: '0.35rem 0.65rem',
-                  fontSize: '0.75rem',
-                  border: 'none',
-                  borderRadius: '4px',
-                  cursor: 'pointer'
-                }}
-              >
-                Dashboard
-              </button>
-              <button
-                onClick={() => { setActiveView('table'); setActiveSettingsView(null); }}
-                style={{
-                  background: activeView === 'table' ? 'var(--accent-gradient)' : 'rgba(255, 255, 255, 0.03)',
-                  color: 'white',
-                  padding: '0.35rem 0.65rem',
-                  fontSize: '0.75rem',
-                  border: 'none',
-                  borderRadius: '4px',
-                  cursor: 'pointer',
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '0.3rem'
-                }}
-              >
-                <TableIcon size={13} /> Registrations Table
-              </button>
-              <button
-                onClick={() => { setActiveView('tree'); setActiveSettingsView(null); }}
-                style={{
-                  background: activeView === 'tree' ? 'var(--accent-gradient)' : 'rgba(255, 255, 255, 0.03)',
-                  color: 'white',
-                  padding: '0.35rem 0.65rem',
-                  fontSize: '0.75rem',
-                  border: 'none',
-                  borderRadius: '4px',
-                  cursor: 'pointer'
-                }}
-              >
-                Lineage Tree
-              </button>
-              <button
-                onClick={() => { setActiveView('reports'); setActiveSettingsView(null); }}
-                style={{
-                  background: activeView === 'reports' ? 'var(--accent-gradient)' : 'rgba(255, 255, 255, 0.03)',
-                  color: 'white',
-                  padding: '0.35rem 0.65rem',
-                  fontSize: '0.75rem',
-                  border: 'none',
-                  borderRadius: '4px',
-                  cursor: 'pointer'
-                }}
-              >
-                Reports
-              </button>
-              <button
-                onClick={() => { setActiveView('stools'); setActiveSettingsView(null); }}
-                style={{
-                  background: activeView === 'stools' ? 'var(--accent-gradient)' : 'rgba(255, 255, 255, 0.03)',
-                  color: 'white',
-                  padding: '0.35rem 0.65rem',
-                  fontSize: '0.75rem',
-                  border: 'none',
-                  borderRadius: '4px',
-                  cursor: 'pointer'
-                }}
-              >
-                Stools
-              </button>
+            <div className="view-tabs" role="tablist">
+              {([
+                ['dashboard', 'Dashboard'],
+                ['table', 'Registrations'],
+                ['tree', 'Lineage tree'],
+                ['reports', 'Reports'],
+                ['stools', 'Stools']
+              ] as const).map(([view, label]) => (
+                <button
+                  key={view}
+                  role="tab"
+                  aria-selected={activeView === view && !activeSettingsView}
+                  className={`view-tab ${activeView === view && !activeSettingsView ? 'active' : ''}`}
+                  onClick={() => { setActiveView(view); setActiveSettingsView(null); }}
+                >
+                  {view === 'table' && <TableIcon size={14} strokeWidth={1.5} />}
+                  {label}
+                </button>
+              ))}
             </div>
           </div>
           
@@ -391,7 +331,7 @@ function App() {
                 onChange={e => setSearchQuery(e.target.value)}
                 onFocus={() => setIsSearchFocused(true)}
                 onBlur={() => setTimeout(() => setIsSearchFocused(false), 200)}
-                placeholder="Search individuals..."
+                placeholder="Search people"
                 style={{ paddingLeft: '2rem' }}
               />
               <Search
@@ -461,7 +401,7 @@ function App() {
         ) : (
           <div style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '1rem', color: 'var(--text-secondary)' }}>
             <AlertCircle size={48} style={{ color: 'var(--text-muted)' }} />
-            <p style={{ fontSize: '0.95rem' }}>No individuals found. Please add a person in the left sidebar to begin!</p>
+            <p style={{ fontSize: '0.95rem' }}>No individuals yet. Add the first person from the left panel</p>
           </div>
         )}
       </div>
@@ -481,7 +421,7 @@ function App() {
         />
       ) : (
         <div className="sidebar-right" style={{ justifyContent: 'center', alignItems: 'center', color: 'var(--text-muted)' }}>
-          <p style={{ fontSize: '0.85rem' }}>Select a node to view statistics</p>
+          <p style={{ fontSize: '0.85rem' }}>Select a person to see their record</p>
         </div>
       )}
     </div>

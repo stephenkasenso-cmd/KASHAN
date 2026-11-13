@@ -164,7 +164,7 @@ export const FamilyTree: React.FC<FamilyTreeProps> = ({
         <path
           key={`spouse-${partner.person_id}`}
           d={`M ${x1} ${y1} L ${x2} ${y2}`}
-          stroke="rgba(168, 85, 247, 0.4)"
+          stroke="rgba(201, 122, 138, 0.4)"
           strokeWidth="2"
           strokeDasharray="4 4"
         />
